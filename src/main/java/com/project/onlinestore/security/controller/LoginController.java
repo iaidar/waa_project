@@ -1,6 +1,7 @@
 package com.project.onlinestore.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +16,10 @@ public class LoginController {
     @RequestMapping({"/","/login"})
     public String login()
     {
-        return "pages/security/login";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getName().equals("anonymousUser"))
+            return "pages/security/login";
+        return "redirect:/default";
     }
 
     @RequestMapping("/login-error")
