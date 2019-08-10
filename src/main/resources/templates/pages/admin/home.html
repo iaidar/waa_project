@@ -20,6 +20,23 @@
     </div>
 
     <h1>Good Morning Admin <span sec:authentication="name"></span></h1>
+    <h2>Pending users</h2>
+
+    <table>
+        <tr th:each="seller:${pendingSellers}">
+            <td th:text="${seller.username}"></td>
+            <td>
+                <form method="post" th:action="@{/admin/reject/{id}(id=${seller.id})}">
+                    <input type="submit" value="Reject">
+                </form>
+            </td>
+            <td>
+                <form method="post" th:action="@{/admin/accept/{id}(id=${seller.id})}">
+                    <input type="submit" value="Accept">
+                </form>
+            </td>
+        </tr>
+    </table>
 
 </div>
 </body>
