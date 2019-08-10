@@ -1,6 +1,7 @@
 package com.project.onlinestore.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ public class LoginController {
     @RequestMapping({"/","/login"})
     public String login()
     {
-        System.out.println(new BCryptPasswordEncoder().encode("admin"));
         return "pages/security/login";
     }
 
