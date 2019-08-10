@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/main_layout}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"+
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product</title>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <h3>Add product</h3>
+
+    <div class="row">
+
+        <form th:action="@{/products/add}" th:object="${product}" method="post" class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-4">
+            <div class="form-group">
+                Title: <input type="text" class="form-control" th:field="*{title}">
+            </div>
+            <div class="form-group">
+                Description: <textarea class="form-control" th:field="*{description}"></textarea>
+            </div>
+            <div class="form-group">
+                Price: <input type="number" class="form-control" th:field="*{price}">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn-block">
+            </div>
+        </form>
+
+    </div>
+
+</div>
+</body>
+</html>
