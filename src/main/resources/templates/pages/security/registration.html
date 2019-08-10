@@ -26,6 +26,12 @@
         <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
         <input type="password" th:field="*{password}" placeholder="Password"/>
     </p>
+
+    <p>
+        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+        <input type="password" th:field="*{email}" placeholder="Email"/>
+    </p>
+
     <p>
         <label th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></label>
         <select th:field="*{role.id}">
