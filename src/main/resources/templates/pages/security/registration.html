@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/main_layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+<form th:action="@{/login}" method="get">
+    <button type="Submit">Go To Login Page</button>
+</form>
+
+<h2><span th:utext="${successMessage}"></span></h2>
+
+<form autocomplete="off" action="#" th:action="@{/registration}"
+      th:object="${user}" method="post">
+    <h3>Registration Form</h3>
+    <br/>
+
+    <p>
+        <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></label>
+        <input type="text" th:field="*{username}" placeholder="Username"/>
+    </p>
+
+    <p>
+        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+        <input type="password" th:field="*{password}" placeholder="Password"/>
+    </p>
+    <p>
+        <label th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></label>
+        <select th:field="*{role.id}">
+            <option th:text="Buyer" th:value="3"/>
+            <option th:text="Seller" th:value="2"/>
+        </select>
+    </p>
+    <button name="Submit" value="Register" type="Submit"
+            th:text="Register"></button>
+
+</form>
+</div>
+</body>
+</html>

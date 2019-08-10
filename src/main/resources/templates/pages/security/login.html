@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/main_layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+<form th:action="@{/registration}" method="get">
+    <button type="Submit">Go To Registration Page</button>
+</form>
+
+<form th:action="@{/login}" method="POST" >
+    <h3 th:text="Welcome"></h3>
+    <br/>
+
+    <input type="text" id="username" name="username" th:placeholder="UserName"/> <br/>
+    <input id="password" name="password" th:placeholder="Password" type="password"/> <br/>
+
+    <div align="center" th:if="${loginError}">
+        <p style="font-size: 20; color: #FF1C19;">UserName or Password invalid or user might need approval! please verify</p>
+    </div>
+    <input type="checkbox" name="remember-me" /> Remember Me?<br/>
+    <button name="Submit" value="Login" type="Submit"
+            th:text="Login"></button>
+</form>
+</div>
+</body>
+</html>
