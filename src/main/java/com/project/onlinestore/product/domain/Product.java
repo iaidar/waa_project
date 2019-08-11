@@ -5,6 +5,7 @@ import com.project.onlinestore.seller.domain.Seller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -32,4 +33,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Seller seller;
+
+    @Transient
+    private MultipartFile image;
 }

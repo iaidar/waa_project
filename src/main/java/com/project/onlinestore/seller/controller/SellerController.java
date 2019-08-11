@@ -7,15 +7,19 @@ import com.project.onlinestore.security.service.UserService;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.seller.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -60,18 +64,29 @@ public class SellerController {
 
     @PostMapping({"/products/add"})
     public String addProduct(@Valid Product product, BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes, Principal principal
-    ) {
+                             RedirectAttributes redirectAttributes, Principal principal, HttpServletRequest request
+                             ) {
         if(bindingResult.hasErrors()) {
             return "pages/products/add-form";
         }
-//        Don't know if this code should be in the controller or the service
-//        but it is working as charm here :)
         User user = userService.findUserByUserName(principal.getName());
         product.setSeller(sellerService.getSellerByUser(user));
-        productService.save(product);
+        Product newProduct = productService.save(product);
+        if (product.getImage()!=null) {
+            MultipartFile productImage = product.getImage();
+            String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+            if (productImage != null && !productImage.isEmpty()) {
+                try {
+                    productImage.transferTo(
+                            new File(rootDirectory + "\\" + newProduct.getId() +
+                                    ".png"));
+                } catch (Exception e) {
+                    throw new RuntimeException("Product Image saving failed", e);
+                }
+            }
+        }
         redirectAttributes.addFlashAttribute("created", "Product was created successfully");
-        return "redirect:/seller/products/list";
+        return "redirect:/seller/myproducts";
     }
 
     @GetMapping("/products/delete/{id}")

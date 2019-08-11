@@ -12,7 +12,7 @@
 
     <div class="row">
 
-        <form th:action="@{/seller/products/add}" th:object="${product}" method="post" class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-4">
+        <form enctype="multipart/form-data" th:action="@{/seller/products/add}" th:object="${product}" method="post" class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-4">
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
                 Title: <input type="text" class="form-control" th:field="*{title}" >
@@ -22,6 +22,9 @@
             </div>
             <div class="form-group">
                 Price: <input type="number" class="form-control" th:field="*{price}">
+            </div>
+            <div class="form-group">
+                Image: <input type="file" class="form-control" th:field="*{image}">
             </div>
             <div class="form-group">
                 <input type="submit" class="btn-block">
