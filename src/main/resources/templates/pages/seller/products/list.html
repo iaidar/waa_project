@@ -16,6 +16,14 @@
         </button>
     </div>
 
+    <!--  this alert will be shown only if redirected from add product page and the product was successfully created.  -->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${deleted}">
+        <strong>Success!</strong> <span th:text="${deleted}"></span>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <table class="table">
         <thead>
             <th>#ID</th>
@@ -29,7 +37,7 @@
                 <td th:text="${product.title}"></td>
                 <td th:text="${product.active}"></td>
                 <td>
-                    <a th:title="delete" class="btn btn-danger" th:href="@{/seller/products/edit/{id}(id=${product.id})}">
+                    <a th:title="delete" class="btn btn-danger" th:href="@{/seller/products/delete/{id}(id=${product.id})}">
                         <i class="material-icons">
                             delete_forever
                         </i>
