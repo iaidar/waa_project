@@ -2,6 +2,8 @@ package com.project.onlinestore.security.service;
 
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.respository.UserRepository;
+import com.project.onlinestore.seller.domain.Seller;
+import com.project.onlinestore.seller.service.SellerService;
 import com.project.onlinestore.utils.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,9 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
+    SellerService sellerService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -24,8 +29,14 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getRole().getId()== SecurityConstants.ROLE_BUYER)
             user.setActive(1);
-        else if (user.getRole().getId()== SecurityConstants.ROLE_SELLER)
+        else if (user.getRole().getId()== SecurityConstants.ROLE_SELLER){
             user.setActive(0);
+            Seller seller = new Seller();
+            User newUser = userRepository.save(user);
+
+            seller.setUser(newUser);
+            sellerService.save(seller);
+        }
         return userRepository.save(user);
     }
 

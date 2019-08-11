@@ -5,4 +5,5 @@ import com.project.onlinestore.seller.domain.Seller;
 
 public interface SellerService {
     Seller getSellerByUser(User user);
+    Seller save(Seller seller);
 }
