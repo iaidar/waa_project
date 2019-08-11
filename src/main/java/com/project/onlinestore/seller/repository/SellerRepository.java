@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface SellerRepository extends CrudRepository<Seller, Long> {
-    @Query("select s from Seller s where s.user =?1")
-    Seller getSellerByUser(User user);
+    Seller findSellerByUser(User user);
 }

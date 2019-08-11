@@ -14,7 +14,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Seller getSellerByUser(User user) {
-        return sellerRepository.getSellerByUser(user);
+        return sellerRepository.findSellerByUser(user);
     }
 
     @Override

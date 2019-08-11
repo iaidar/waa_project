@@ -39,7 +39,6 @@ public class SellerController {
     public String listSellerProducts(Model model, Principal principal) {
         User user = userService.findUserByUserName(principal.getName());
         Seller seller = sellerService.getSellerByUser(user);
-        System.out.println(seller);
         model.addAttribute("products", productService.findProductsBySeller(seller));
         return "pages/seller/products/list";
     }
