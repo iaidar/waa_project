@@ -29,18 +29,16 @@
                 <td th:text="${product.title}"></td>
                 <td th:text="${product.active}"></td>
                 <td>
-                    <button>
-                        <i class="material-icons" th:title="delete">
+                    <a th:title="delete" class="btn btn-danger" th:href="@{/seller/products/edit/{id}(id=${product.id})}">
+                        <i class="material-icons">
                             delete_forever
                         </i>
-                    </button>
-                    <form action="#">
-                        <button type="submit" th:title="edit">
-                            <i class="material-icons">
-                                border_color
-                            </i>
-                        </button>
-                    </form>
+                    </a>
+                    <a  th:title="edit" class="btn btn-primary" th:href="@{/seller/products/edit/{id}(id=${product.id})}">
+                        <i class="material-icons">
+                            border_color
+                        </i>
+                    </a>
                 </td>
             </tr>
         </tbody>

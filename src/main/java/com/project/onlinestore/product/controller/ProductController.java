@@ -14,8 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -45,18 +47,26 @@ public class ProductController {
         return "pages/products/details";
     }
 
-    @GetMapping("/seller/products/add")
-    public String showAddProductForm(@ModelAttribute Product product) {
+    @GetMapping({"/seller/products/add", "/seller/products/edit/{id}"})
+    public String showAddProductForm(@ModelAttribute Product product, @PathVariable Optional<Long> id, Model model) {
+        if(id.isPresent()) {
+            product = productService.findById(id.get());
+            model.addAttribute("product", product);
+            System.out.println("yes");
+        }
         return "pages/products/add-form";
     }
 
 
-    @PostMapping("/seller/products/add")
+    @PostMapping({"/seller/products/add"})
     public String addProduct(@Valid Product product, BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes, Principal principal) {
+                             RedirectAttributes redirectAttributes, Principal principal
+                             ) {
         if(bindingResult.hasErrors()) {
             return "redirect:/products/add";
         }
+//        Don't know if this code should be in the controller or the service
+//        but it is working as charm here :)
         User user = userService.findUserByUserName(principal.getName());
         product.setSeller(sellerService.getSellerByUser(user));
         productService.save(product);
