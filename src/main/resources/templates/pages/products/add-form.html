@@ -12,7 +12,7 @@
 
     <div class="row">
 
-        <form th:action="@{/products/add}" th:object="${product}" method="post" class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-4">
+        <form th:action="@{/seller/products/add}" th:object="${product}" method="post" class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-4">
             <div class="form-group">
                 Title: <input type="text" class="form-control" th:field="*{title}">
             </div>

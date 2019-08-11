@@ -2,11 +2,17 @@ package com.project.onlinestore.seller.domain;
 
 import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.security.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,7 +21,7 @@ public class Seller {
     @OneToOne
     private User user;
 
-    @OneToMany(mappedBy = "seller")
+    @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
     private List<Product> products;
 
 }

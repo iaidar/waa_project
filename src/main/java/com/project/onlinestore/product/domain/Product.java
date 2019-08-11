@@ -1,6 +1,7 @@
 package com.project.onlinestore.product.domain;
 
 import com.project.onlinestore.security.domain.User;
+import com.project.onlinestore.seller.domain.Seller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "product")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,9 +23,8 @@ public class Product {
     private String description;
     private Double price;
 
-    @Column(columnDefinition = "true")
-    private Boolean active;
+    private Boolean active = true;
 
-    @ManyToOne
-    private User seller;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Seller seller;
 }
