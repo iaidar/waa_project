@@ -28,6 +28,11 @@ public class User {
     @Size(min=5,max = 15, message = "{Size.username}")
     private String username;
 
+    @Column(name="email")
+    @NotBlank
+    @Email
+    private String email;
+
     @Column(name = "password")
     @NotBlank
     @Size(min=5,  message = "{Size.password}")
