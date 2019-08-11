@@ -28,6 +28,7 @@
         <thead>
             <th>#ID</th>
             <th>title</th>
+            <th>Price</th>
             <th>Active</th>
             <th>Actions</th>
         </thead>
@@ -35,6 +36,7 @@
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}"></td>
                 <td th:text="${product.title}"></td>
+                <td th:text="${product.price}"></td>
                 <td th:text="${product.active}"></td>
                 <td>
                     <a th:title="delete" class="btn btn-danger" th:href="@{/seller/products/delete/{id}(id=${product.id})}">

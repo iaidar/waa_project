@@ -19,9 +19,6 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
-    SellerService sellerService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -31,11 +28,6 @@ public class UserServiceImpl implements UserService {
             user.setActive(1);
         else if (user.getRole().getId()== SecurityConstants.ROLE_SELLER){
             user.setActive(0);
-            Seller seller = new Seller();
-            User newUser = userRepository.save(user);
-
-            seller.setUser(newUser);
-            sellerService.save(seller);
         }
         return userRepository.save(user);
     }

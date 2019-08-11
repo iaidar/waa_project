@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -20,7 +22,10 @@ public class Product {
     private Long id;
     @Size(min = 2, max = 50)
     private String title;
+    @Size(min=4, max=200)
     private String description;
+    @NotNull
+    @Min(1)
     private Double price;
 
     private Boolean active = true;

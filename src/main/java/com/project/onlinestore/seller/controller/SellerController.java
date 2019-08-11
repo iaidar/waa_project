@@ -63,7 +63,7 @@ public class SellerController {
                              RedirectAttributes redirectAttributes, Principal principal
     ) {
         if(bindingResult.hasErrors()) {
-            return "redirect:/products/add";
+            return "pages/products/add-form";
         }
 //        Don't know if this code should be in the controller or the service
 //        but it is working as charm here :)
@@ -71,7 +71,7 @@ public class SellerController {
         product.setSeller(sellerService.getSellerByUser(user));
         productService.save(product);
         redirectAttributes.addFlashAttribute("created", "Product was created successfully");
-        return "redirect:/products/list";
+        return "redirect:/seller/products/list";
     }
 
     @GetMapping("/products/delete/{id}")

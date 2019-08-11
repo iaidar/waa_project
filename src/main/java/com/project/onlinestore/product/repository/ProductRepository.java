@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
-//    @Query("select p from Product p where p.seller=?1")
+
     List<Product> findProductsBySeller(Seller seller);
 }

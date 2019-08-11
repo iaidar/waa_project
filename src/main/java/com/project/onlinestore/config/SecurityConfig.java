@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/login","/login-error", "/registration", "/h2-console/**").permitAll()
                 .antMatchers("/seller/**").hasAuthority("SELLER")
-                .antMatchers("/buyer/**").hasAuthority("BUYER")
+                .antMatchers("/buyer/**","/products/**").hasAuthority("BUYER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated() //all other urls can be access by any authenticated role
                 .and()

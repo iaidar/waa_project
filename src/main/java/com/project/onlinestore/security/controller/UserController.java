@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
@@ -17,7 +16,7 @@ public class UserController {
         @Autowired
         UserService userService;
         @RequestMapping("/default")
-        public String defaultAfterLogin(HttpServletRequest request) {
+        public String defaultAfterLogin() {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findUserByUserName(auth.getName());
             if (user.getRole().getId()== SecurityConstants.ROLE_ADMIN)
