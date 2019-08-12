@@ -1,5 +1,7 @@
 package com.project.onlinestore.security.service;
 
+import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.respository.UserRepository;
 import com.project.onlinestore.seller.domain.Seller;
@@ -19,17 +21,27 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
+    BuyerService buyerService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public User saveUser(User user) {
+        User newUser=null;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getRole().getId()== SecurityConstants.ROLE_BUYER)
+        if (user.getRole().getId()== SecurityConstants.ROLE_BUYER) {
             user.setActive(1);
+            newUser = userRepository.save(user);
+            Buyer buyer = new Buyer();
+            buyer.setUser(newUser);
+            buyerService.save(buyer);
+        }
         else if (user.getRole().getId()== SecurityConstants.ROLE_SELLER){
             user.setActive(0);
+            newUser = userRepository.save(user);
         }
-        return userRepository.save(user);
+        return newUser;
     }
 
     @Override

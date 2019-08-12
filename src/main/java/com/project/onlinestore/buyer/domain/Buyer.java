@@ -1,19 +1,18 @@
-package com.project.onlinestore.seller.domain;
+package com.project.onlinestore.buyer.domain;
 
-import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.security.domain.User;
-import lombok.AllArgsConstructor;
+import com.project.onlinestore.seller.domain.Seller;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class Seller {
+@Entity
+public class Buyer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -21,11 +20,7 @@ public class Seller {
     @OneToOne
     private User user;
 
-    @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
-    private List<Product> products;
-
     @ManyToMany(fetch = FetchType.LAZY)
-
-    private List<Seller> followers;
-
+    @JoinTable(name = "SELLER_FOLLOWERS",joinColumns = @JoinColumn(name = "followers_id"),inverseJoinColumns = @JoinColumn(name = "seller_id"))
+    private List<Seller> following;
 }
