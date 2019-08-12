@@ -19,20 +19,13 @@
 
     <!--  product list -->
     <div class="row">
-        <div class="col-12 col-sm-3">
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase"><small>Ads By Google</small></div>
-                <div class="card-body">
-                    <img src="https://thumbs.gfycat.com/AstonishingComplexAmericanlobster-size_restricted.gif" alt="ad" width="100%" height="550px">
-                </div>
-            </div>
-        </div>
+        <div th:replace="layout/fragments/ad :: ad"></div>
         <div class="col">
             <div class="row">
 
                 <div class="col-12 col-md-6 col-lg-4"  th:each="product: ${products}">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap"> <!-- th:src="@{/{id}.png(id=${product.id})}" -->
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap" > <!-- th:src="@{/{id}.png(id=${product.id})}" -->
                         <div class="card-body">
                             <h4 class="card-title"><a th:href="@{/products/details/{id}(id=${product.id})}" title="View Product" th:text="${product.title}">Product title</a></h4>
                             <p class="card-text" th:text="${product.description}">description.</p>

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,8 +14,21 @@
     <body>
         <section  th:replace="layout/fragments/navbar :: navbar"></section>
 
-        <div layout:fragment="content">
+        <div sec:authorize="hasAuthority('BUYER')" class="container">
+            <div class="row">
+                <a href="#">
+                    <img src="https://truenorthinc.com/wp-content/uploads/2018/07/worldcup_advertising_blog_photo-1.jpg" alt="ad" height="100px" width="100%">
+                </a>
+            </div>
+            <div layout:fragment="content"></div>
+        </div>
 
+        <div sec:authorize="hasAuthority('ADMIN')"  class="container">
+            <div layout:fragment="content"></div>
+        </div>
+
+        <div sec:authorize="hasAuthority('SELLER')"  class="container">
+            <div layout:fragment="content"></div>
         </div>
 
         <footer th:replace="layout/fragments/footer :: footer"></footer>
