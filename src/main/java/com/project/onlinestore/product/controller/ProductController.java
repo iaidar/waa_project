@@ -6,6 +6,7 @@ import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.service.UserService;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.seller.service.SellerService;
+import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -25,12 +27,20 @@ public class ProductController {
     private ProductService productService;
     private SellerService sellerService;
     private UserService userService;
+    private FileService fileService;
+
+    @ModelAttribute("link")
+    private String getAdLink(HttpServletRequest request){
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        return fileService.readFile(rootDirectory+"//link.txt");
+    }
 
     @Autowired
-    public ProductController(ProductService productService, SellerService sellerService, UserService userService) {
+    public ProductController(ProductService productService, SellerService sellerService, UserService userService, FileService fileService) {
         this.productService = productService;
         this.sellerService = sellerService;
         this.userService = userService;
+        this.fileService = fileService;
     }
 
 //    anyone should have access to this link

@@ -18,7 +18,7 @@
             </p>
             <p th:text="${product.description}">Product description</p>
             <div>
-                <img src="https://www.tourniagara.com/wp-content/uploads/2014/10/default-img.gif" th:alt="${product.title}" th:width="200px">
+                <img th:src="@{/{id}.png(id=${product.id})}" th:alt="${product.title}" th:width="200px">
             </div>
 
         </div>

@@ -1,5 +1,6 @@
 package com.project.onlinestore.admin.service;
 
+import com.project.onlinestore.admin.domain.Ad;
 import com.project.onlinestore.email.EmailService;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.respository.RoleRepository;
@@ -7,6 +8,7 @@ import com.project.onlinestore.security.respository.UserRepository;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.seller.service.SellerService;
 import com.project.onlinestore.utils.SecurityConstants;
+import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,9 @@ public class AdminServiceImpl implements AdminService  {
 
     @Autowired
     SellerService sellerService;
+
+    @Autowired
+    FileService fileService;
 
     @Override
     public List<User> getPendingSellers() {
@@ -51,4 +56,11 @@ public class AdminServiceImpl implements AdminService  {
         userRepository.delete(seller);
         emailService.sendPendingRejectEmail(seller);
     }
+
+    @Override
+    public void changeAd(Ad ad, String rootDirectory) {
+        fileService.writeFile(rootDirectory+"//link.txt",ad.getLink());
+        fileService.transferImage(rootDirectory+"//0",ad.getImage(),"gif");
+    }
+
 }

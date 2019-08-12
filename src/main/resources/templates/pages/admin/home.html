@@ -14,7 +14,7 @@
         <span sec:authentication="principal.authorities"></span>
         <div>
             <form action="#" th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" />
+                <input type="submit" value="Logout" class="btn btn-danger" />
             </form>
         </div>
     </div>
@@ -22,21 +22,45 @@
     <h1>Good Morning Admin <span sec:authentication="name"></span></h1>
     <h2>Pending users</h2>
 
-    <table>
+    <table class="table">
+        <thead>
+        <th>Username</th>
+        <th>Accept</th>
+        <th>Reject</th>
+        </thead>
+        <tbody>
         <tr th:each="seller:${pendingSellers}">
             <td th:text="${seller.username}"></td>
             <td>
-                <form method="post" th:action="@{/admin/reject/{id}(id=${seller.id})}">
-                    <input type="submit" value="Reject">
+                <form method="post" th:action="@{/admin/accept/{id}(id=${seller.id})}">
+                    <input type="submit" value="Accept" class="btn btn-primary">
                 </form>
             </td>
             <td>
-                <form method="post" th:action="@{/admin/accept/{id}(id=${seller.id})}">
-                    <input type="submit" value="Accept">
+                <form method="post" th:action="@{/admin/reject/{id}(id=${seller.id})}">
+                    <input type="submit" value="Reject" class="btn btn-danger">
                 </form>
             </td>
         </tr>
+        </tbody>
     </table>
+
+    <h3>Change Ads</h3>
+
+    <div class="row">
+        <form enctype="multipart/form-data" th:action="@{/admin/adChange}" th:object="${ad}" method="post" class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-4">
+            <div class="form-group">
+                URL Link: <input type="text" class="form-control" th:field="*{link}">
+            </div>
+            <div class="form-group">
+                Image: <input type="file" class="form-control" th:field="*{image}">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn-block">
+            </div>
+        </form>
+    </div>
+
 
 </div>
 </body>

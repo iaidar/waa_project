@@ -14,21 +14,24 @@
     <body>
         <section  th:replace="layout/fragments/navbar :: navbar"></section>
 
-        <div sec:authorize="hasAuthority('BUYER')" class="container">
-            <div class="row">
-                <a href="#">
-                    <img src="https://truenorthinc.com/wp-content/uploads/2018/07/worldcup_advertising_blog_photo-1.jpg" alt="ad" height="100px" width="100%">
-                </a>
+        <div  class="container">
+            <div >
+                <div sec:authorize="hasAuthority('BUYER')" class="row">
+                    <div class="col-12 col-sm-3">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header bg-success text-white text-uppercase"><small>Ads</small></div>
+                            <div class="card-body">
+                                <a href="#" th:href="${link}">
+                                    <img src="/0.gif" width="100%" height="200px">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div layout:fragment="content">
+
+                </div>
             </div>
-            <div layout:fragment="content"></div>
-        </div>
-
-        <div sec:authorize="hasAuthority('ADMIN')"  class="container">
-            <div layout:fragment="content"></div>
-        </div>
-
-        <div sec:authorize="hasAuthority('SELLER')"  class="container">
-            <div layout:fragment="content"></div>
         </div>
 
         <footer th:replace="layout/fragments/footer :: footer"></footer>

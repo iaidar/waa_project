@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout/main_layout}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"+
+<html lang="en" layout:decorate="~{layout/main_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -18,32 +20,26 @@
     </div>
 
     <!--  product list -->
-    <div class="row">
-        <div th:replace="layout/fragments/ad :: ad"></div>
-        <div class="col">
-            <div class="row">
+    <div layout:fragment="content">
 
-                <div class="col-12 col-md-6 col-lg-4"  th:each="product: ${products}">
-                    <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap" > <!-- th:src="@{/{id}.png(id=${product.id})}" -->
-                        <div class="card-body">
-                            <h4 class="card-title"><a th:href="@{/products/details/{id}(id=${product.id})}" title="View Product" th:text="${product.title}">Product title</a></h4>
-                            <p class="card-text" th:text="${product.description}">description.</p>
-                            <div class="row">
-                                <div class="col">
-                                    <p class="btn btn-danger btn-block" th:text="${product.price + '$'}">99.00 $</p>
-                                </div>
-                                <div class="col">
-                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                                </div>
-                            </div>
+        <div class="col-12 col-md-6 col-lg-4" th:each="product: ${products}">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><a th:href="@{/products/details/{id}(id=${product.id})}" title="View Product"
+                                              th:text="${product.title}">Product title</a></h4>
+                    <p class="card-text" th:text="${product.description}">description.</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class="btn btn-danger btn-block" th:text="${product.price + '$'}">99.00 $</p>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="btn btn-success btn-block">Add to cart</a>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
+        </div>
     </div>
 
 </div>

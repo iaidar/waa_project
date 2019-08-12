@@ -1,13 +1,16 @@
 package com.project.onlinestore.admin.controller;
 
+import com.project.onlinestore.admin.domain.Ad;
 import com.project.onlinestore.admin.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,7 +20,7 @@ public class AdminController {
     AdminService adminService;
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(@ModelAttribute Ad ad, Model model){
         model.addAttribute("pendingSellers",adminService.getPendingSellers());
         return "pages/admin/home";
     }
@@ -31,6 +34,18 @@ public class AdminController {
     @PostMapping("/reject/{id}")
     public String rejectSeller(@PathVariable Long id,Model model){
         adminService.rejectSeller(id);
+        return "redirect:/admin/";
+    }
+
+    @PostMapping("/adChange")
+    public String changeAd(@Valid @ModelAttribute("ad") Ad ad, BindingResult result, HttpServletRequest request){
+        if (result.hasErrors()){
+            return "pages/admin/home";
+        }
+        MultipartFile productImage = ad.getImage();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        if (productImage != null && !productImage.isEmpty())
+            adminService.changeAd(ad,rootDirectory);
         return "redirect:/admin/";
     }
 

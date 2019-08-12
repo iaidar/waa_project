@@ -6,6 +6,7 @@ import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.service.UserService;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.seller.service.SellerService;
+import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
@@ -30,12 +31,14 @@ public class SellerController {
     private ProductService productService;
     private SellerService sellerService;
     private UserService userService;
+    private FileService fileService;
 
     @Autowired
-    public SellerController(ProductService productService, SellerService sellerServicel, UserService userService) {
+    public SellerController(ProductService productService, SellerService sellerServicel, UserService userService, FileService fileService) {
         this.productService = productService;
         this.sellerService = sellerServicel;
         this.userService = userService;
+        this.fileService = fileService;
     }
 
     @GetMapping("/")
@@ -75,15 +78,8 @@ public class SellerController {
         if (product.getImage()!=null) {
             MultipartFile productImage = product.getImage();
             String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-            if (productImage != null && !productImage.isEmpty()) {
-                try {
-                    productImage.transferTo(
-                            new File(rootDirectory + "\\" + newProduct.getId() +
-                                    ".png"));
-                } catch (Exception e) {
-                    throw new RuntimeException("Product Image saving failed", e);
-                }
-            }
+            if (productImage != null && !productImage.isEmpty())
+                fileService.transferImage(rootDirectory+"//"+newProduct.getId(),productImage,"png");
         }
         redirectAttributes.addFlashAttribute("created", "Product was created successfully");
         return "redirect:/seller/myproducts";
