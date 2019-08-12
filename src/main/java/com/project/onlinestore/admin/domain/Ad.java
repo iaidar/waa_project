@@ -20,4 +20,7 @@ public class Ad implements Serializable {
     @NotNull
     private MultipartFile image;
 
+    public MultipartFile getImage() {
+        return image;
+    }
 }

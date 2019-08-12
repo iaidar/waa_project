@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -38,14 +39,16 @@ public class AdminController {
     }
 
     @PostMapping("/adChange")
-    public String changeAd(@Valid @ModelAttribute("ad") Ad ad, BindingResult result, HttpServletRequest request){
+    public String changeAd(@Valid @ModelAttribute("ad") Ad ad, BindingResult result, HttpServletRequest request,
+                           RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
             return "pages/admin/home";
         }
         MultipartFile productImage = ad.getImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        if (productImage != null && !productImage.isEmpty())
-            adminService.changeAd(ad,rootDirectory);
+        if (productImage != null && !productImage.isEmpty()){
+            redirectAttributes.addFlashAttribute("successMessage", "Ad has been changed successfully!");
+            adminService.changeAd(ad,rootDirectory);}
         return "redirect:/admin/";
     }
 

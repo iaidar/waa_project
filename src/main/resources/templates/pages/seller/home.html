@@ -8,15 +8,7 @@
 <body>
 <div layout:fragment="content" class="container mt-4">
 
-    <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
-        User: <span sec:authentication="name"></span> |
-        <span sec:authentication="principal.authorities"></span>
-        <div>
-            <form action="#" th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" class="btn btn-danger"/>
-            </form>
-        </div>
-    </div>
+    <h1>Good Morning seller <span sec:authentication="name"></span></h1>
 
     <div class="row mt-3">
         <div class="form-group col-xs-12 col-md-4 offset-md-4 ">
@@ -24,8 +16,6 @@
             <a th:href="@{/seller/myproducts}" class="btn btn-primary btn-block">My Products</a>
         </div>
     </div>
-
-    <h1>Good Morning seller <span sec:authentication="name"></span></h1>
 
 </div>
 </body>
