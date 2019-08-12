@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Products List</title>
+
 </head>
 <body>
 <div layout:fragment="content" class="container mt-4">
@@ -18,13 +19,35 @@
 
     <!--  product list -->
     <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase"><small>Ads By Google</small></div>
+                <div class="card-body">
+                    <img src="https://thumbs.gfycat.com/AstonishingComplexAmericanlobster-size_restricted.gif" alt="ad" width="100%" height="550px">
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
 
-        <div class="card" style="width: 18rem;" th:each="product: ${products}">
-            <img th:src="@{/{id}.png(id=${product.id})}" class="card-img-top" th:alt="${product.title}">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${product.title}">Product title</h5>
-                <p class="card-text" th:text="${product.description}">product description.</p>
-                <a th:href="@{/products/details/{id}(id=${product.id})}" class="btn btn-primary">Show Product</a>
+                <div class="col-12 col-md-6 col-lg-4"  th:each="product: ${products}">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap"> <!-- th:src="@{/{id}.png(id=${product.id})}" -->
+                        <div class="card-body">
+                            <h4 class="card-title"><a th:href="@{/products/details/{id}(id=${product.id})}" title="View Product" th:text="${product.title}">Product title</a></h4>
+                            <p class="card-text" th:text="${product.description}">description.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block" th:text="${product.price + '$'}">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

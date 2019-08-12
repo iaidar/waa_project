@@ -43,7 +43,7 @@ public class AdminServiceImpl implements AdminService  {
         seller.setUser(user);
         sellerService.save(seller);
 
-        //emailService.sendPendingAcceptanceEmail(user);
+        emailService.sendPendingAcceptanceEmail(user);
     }
 
     public void rejectSeller(Long sellerId){
