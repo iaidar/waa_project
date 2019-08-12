@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout/buyer_layout}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"+
+<html lang="en" layout:decorate="~{layout/buyer_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -10,20 +12,55 @@
 
     <div class="row">
 
-        <div class="col-lg-5 offset-lg-3 col-md-6 ofsset-md-2">
+        <div class="card">
+            <div class="row">
+                <aside class="col-sm-5 border-right">
+                    <article>
+                        <div class="img-big-wrap">
+                            <div>
+                                <img src="https://x.kinja-static.com/assets/images/logos/placeholders/default.png" width="100%" height="500px"
+                                     alt="product image">
+                            </div>
+                        </div> <!-- slider-product.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                </aside>
+                <aside class="col-sm-7">
+                    <article class="card-body p-5">
+                        <h3 class="title mb-3" th:text="${product.title}"></h3>
 
-            <h3>Title : <span th:text="${product.title}">prodoct title</span></h3>
-            <p>
-                <b>Price : <b th:text="${product.price}">product price</b> $</b>
-            </p>
-            <p th:text="${product.description}">Product description</p>
-            <div>
-                <img th:src="@{/{id}.png(id=${product.id})}" th:alt="${product.title}" th:width="200px">
-            </div>
+                        <p class="price-detail-wrap">
+                        <span class="price h3 text-warning">
+                            <span class="currency">US $</span><span class="num" th:text="${product.price}"></span>
+                        </span>
+                        </p> <!-- price-detail-wrap .// -->
+                        <dl class="item-property">
+                            <dt>Description</dt>
+                            <dd><p th:text="${product.description}"></p></dd>
+                        </dl>
+                       <!-- item-property-hor .// -->
 
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <dl class="param param-inline">
+                                    <dt>Quantity:</dt>
+                                    <dd>
+                                        <input type="text" class="form-control">
+                                    </dd>
+                                </dl>  <!-- item-property .// -->
+                            </div> <!-- col.// -->
+                        </div> <!-- row.// -->
+                        <hr>
+                        <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i
+                                class="fas fa-shopping-cart"></i> Add to cart </a>
+                    </article> <!-- card-body.// -->
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
         </div>
 
     </div>
+
+</div>
 
 </div>
 </body>
