@@ -11,26 +11,28 @@
 <body>
 <div layout:fragment="content" class="container mt-4">
 
-    <div class="col-12 col-md-6 col-lg-4" th:each="product: ${products}">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">
-                    <img th:src="@{/{id}.png(id=${product.id})}" src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg" width="100%" height="200px">
-                    <a th:href="@{/products/details/{id}(id=${product.id})}" title="View Product"
-                                          th:text="${product.title}">Product title</a>
-                </h4>
-                <p class="card-text" th:text="${product.description}">description.</p>
-                <div class="row">
-                    <div class="col">
-                        <p class="btn btn-danger btn-block" th:text="${product.price + '$'}">99.00 $</p>
-                    </div>
-                    <div class="col">
-                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-lg-3" th:each="product: ${products}">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <img th:src="@{/{id}.png(id=${product.id})}" src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg" width="100%" height="200px">
+                        <a th:href="@{/products/details/{id}(id=${product.id})}" title="View Product"
+                           th:text="${product.title}">Product title</a>
+                    </h4>
+                    <p class="card-text" th:text="${product.description}">description.</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class="btn btn-danger btn-block" th:text="${product.price + '$'}">99.00 $</p>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
 </div>
