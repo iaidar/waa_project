@@ -21,16 +21,28 @@
                 </a>
             </li>
 
-
         </ul>
 
         <ul class="navbar-nav ml-auto">
+            <!--Cart-->
+            <li class="nav-item  mr-2" sec:authorize="hasAuthority('BUYER')">
+                <a th:title="edit" class="btn btn-primary" th:href="@{/cart}">
+                    <i class="material-icons">
+                        shopping_cart
+                    </i>
+                </a>
+            </li>
+
+
             <li class="nav-item">
                 <form class="form-inline my-2 my-lg-0" th:method="post" th:action="@{/logout}"
                       sec:authorize="isAuthenticated()">
                     <span sec:authentication="name" class="mr-4 text-light"></span>
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
-                </form>
+
+
+            <!--End of cart-->
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+            </form>
             </li>
         </ul>
     </div>

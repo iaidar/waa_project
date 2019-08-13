@@ -24,4 +24,7 @@ public class Buyer {
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "SELLER_FOLLOWERS",joinColumns = @JoinColumn(name = "followers_id"),inverseJoinColumns = @JoinColumn(name = "seller_id"))
     private List<Seller> following;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 }

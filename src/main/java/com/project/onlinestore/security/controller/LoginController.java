@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
-
-
-    @RequestMapping({"/","/login"})
-    public String login()
-    {
+    @RequestMapping({"/", "/login"})
+    public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getName().equals("anonymousUser"))
             return "pages/security/login";
@@ -20,9 +17,8 @@ public class LoginController {
     }
 
     @RequestMapping("/login-error")
-    public String loginError(Model model){
-        model.addAttribute("loginError",true);
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
         return "pages/security/login";
     }
-
 }
