@@ -1,5 +1,7 @@
 package com.project.onlinestore.product.controller;
 
+import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.product.service.ProductService;
 import com.project.onlinestore.security.domain.User;
@@ -26,6 +28,7 @@ public class ProductController {
 
     private ProductService productService;
     private SellerService sellerService;
+    private BuyerService buyerService;
     private UserService userService;
     private FileService fileService;
 
@@ -36,11 +39,12 @@ public class ProductController {
     }
 
     @Autowired
-    public ProductController(ProductService productService, SellerService sellerService, UserService userService, FileService fileService) {
+    public ProductController(ProductService productService, SellerService sellerService, UserService userService, FileService fileService,BuyerService buyerService) {
         this.productService = productService;
         this.sellerService = sellerService;
         this.userService = userService;
         this.fileService = fileService;
+        this.buyerService = buyerService;
     }
 
 //    anyone should have access to this link
@@ -52,8 +56,10 @@ public class ProductController {
 
 //    anyone should have access to this link
     @GetMapping("/products/details/{id}")
-    public String productDetails(@PathVariable Long id, Model model) {
-        model.addAttribute("product", productService.findById(id));
+    public String productDetails(@PathVariable Long id, Model model, Principal principal) {
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
+        model.addAttribute("follow",buyerService.isFollowed(buyerService.getBuyerByUsername(principal.getName()),product.getSeller()));
         return "pages/products/details";
     }
 

@@ -28,4 +28,8 @@ public class Seller {
 
     private List<Seller> followers;
 
+    @Override
+    public String toString() {
+        return user.getUsername();
+    }
 }

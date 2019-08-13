@@ -2,6 +2,9 @@ package com.project.onlinestore.buyer.service;
 
 import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.buyer.repository.BuyerReposiotry;
+import com.project.onlinestore.security.domain.User;
+import com.project.onlinestore.security.service.UserService;
+import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.seller.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +22,23 @@ public class BuyerServiceImpl implements BuyerService {
     @Autowired
     SellerRepository sellerRepository;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public Buyer save(Buyer buyer) {
         return buyerReposiotry.save(buyer);
     }
 
     @Override
-    public Boolean follow(Buyer buyer, Long sellerId) {
+    public Buyer getBuyerByUsername(String username) {
+        User user = userService.findUserByUserName(username);
+        return buyerReposiotry.findBuyerByUser(user);
+    }
+
+    @Override
+    public Boolean follow(String buyername, Long sellerId) {
+        Buyer buyer = getBuyerByUsername(buyername);
         if (buyer.getFollowing()==null)
             buyer.setFollowing(new ArrayList<>());
         buyer.getFollowing().add(sellerRepository.findById(sellerId).get());
@@ -33,11 +46,19 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public Boolean unfollow(Buyer buyer, Long sellerId) {
+    public Boolean unfollow(String buyername, Long sellerId) {
+        Buyer buyer = getBuyerByUsername(buyername);
         if (buyer.getFollowing()==null)
             buyer.setFollowing(new ArrayList<>());
         buyer.getFollowing().remove(sellerRepository.findById(sellerId).get());
         return true;
+    }
+
+    @Override
+    public boolean isFollowed(Buyer buyer, Seller seller) {
+        if (buyer.getFollowing()==null)
+            return false;
+        return buyer.getFollowing().contains(seller);
     }
 
 

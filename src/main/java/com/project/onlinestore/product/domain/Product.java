@@ -31,7 +31,7 @@ public class Product {
 
     private Boolean active = true;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Seller seller;
 
     @Transient
