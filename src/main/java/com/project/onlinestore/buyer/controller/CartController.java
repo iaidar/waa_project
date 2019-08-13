@@ -7,10 +7,7 @@ import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -51,9 +48,9 @@ public class CartController {
     }
 
     @GetMapping("/cart/add/{id}")
-    public String addToCart(@PathVariable("id") Long productId, Principal principal) {
+    public String addToCart(@PathVariable("id") Long productId, @RequestParam(value = "qty",required = false,defaultValue = "1") Integer qty, Principal principal) {
         String username = principal.getName();
-        service.addToCart(productId, username, 1);
+        service.addToCart(productId, username, qty);
         return "redirect:/buyer/cart";
     }
 
