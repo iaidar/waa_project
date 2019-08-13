@@ -62,4 +62,9 @@ public class BuyerController {
         notificationService.makeAllNotificationsSeen();
         return "pages/buyer/notifications";
     }
+
+    @GetMapping("/cart")
+    public String showCart() {
+        return "/pages/buyer/cart";
+    }
 }
