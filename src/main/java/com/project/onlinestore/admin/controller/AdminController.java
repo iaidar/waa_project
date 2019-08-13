@@ -27,14 +27,16 @@ public class AdminController {
     }
 
     @PostMapping("/accept/{id}")
-    public String acceptSeller(@PathVariable Long id,Model model){
+    public String acceptSeller(@PathVariable Long id,RedirectAttributes redirectAttributes){
         adminService.acceptSeller(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Seller has been accepted!");
         return "redirect:/admin/";
     }
 
     @PostMapping("/reject/{id}")
-    public String rejectSeller(@PathVariable Long id,Model model){
+    public String rejectSeller(@PathVariable Long id,RedirectAttributes redirectAttributes){
         adminService.rejectSeller(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Seller has been rejected!");
         return "redirect:/admin/";
     }
 
@@ -48,7 +50,8 @@ public class AdminController {
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         if (productImage != null && !productImage.isEmpty()){
             redirectAttributes.addFlashAttribute("successMessage", "Ad has been changed successfully!");
-            adminService.changeAd(ad,rootDirectory);}
+            adminService.changeAd(ad,rootDirectory);
+        }
         return "redirect:/admin/";
     }
 
