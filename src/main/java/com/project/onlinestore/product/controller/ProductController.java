@@ -2,6 +2,7 @@ package com.project.onlinestore.product.controller;
 
 import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.buyer.service.BuyerService;
+import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.product.service.ProductService;
 import com.project.onlinestore.security.domain.User;
@@ -27,10 +28,9 @@ import java.util.Optional;
 public class ProductController {
 
     private ProductService productService;
-    private SellerService sellerService;
     private BuyerService buyerService;
-    private UserService userService;
     private FileService fileService;
+    private NotificationService notificationService;
 
     @ModelAttribute("link")
     private String getAdLink(HttpServletRequest request){
@@ -38,13 +38,17 @@ public class ProductController {
         return fileService.readFile(rootDirectory+"//link.txt");
     }
 
+    @ModelAttribute("notification_number")
+    private int getNotificationNumber(Principal principal){
+        return notificationService.countUnseenNotifications(principal.getName());
+    }
+
     @Autowired
-    public ProductController(ProductService productService, SellerService sellerService, UserService userService, FileService fileService,BuyerService buyerService) {
+    public ProductController(ProductService productService, FileService fileService,BuyerService buyerService, NotificationService notificationService) {
         this.productService = productService;
-        this.sellerService = sellerService;
-        this.userService = userService;
         this.fileService = fileService;
         this.buyerService = buyerService;
+        this.notificationService = notificationService;
     }
 
 //    anyone should have access to this link

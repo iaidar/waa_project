@@ -2,6 +2,7 @@ package com.project.onlinestore.buyer.controller;
 
 import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.buyer.service.BuyerService;
+import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.utils.service.FileService;
@@ -22,12 +23,22 @@ public class BuyerController {
     @Autowired
     BuyerService buyerService;
 
+    @Autowired
+    NotificationService notificationService;
+
 
     @ModelAttribute("link")
     private String getAdLink(HttpServletRequest request){
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         return fileService.readFile(rootDirectory+"//link.txt");
     }
+
+    @ModelAttribute("notification_number")
+    private int getNotificationNumber(Principal principal){
+        return notificationService.countUnseenNotifications(principal.getName());
+    }
+
+
 
     @GetMapping("/")
     public String home(){

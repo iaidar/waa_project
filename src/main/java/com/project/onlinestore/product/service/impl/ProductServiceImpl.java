@@ -1,5 +1,6 @@
 package com.project.onlinestore.product.service.impl;
 
+import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.product.repository.ProductRepository;
 import com.project.onlinestore.product.service.ProductService;
@@ -23,11 +24,15 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private SellerService sellerService;
     @Autowired
-    private UserService userService;
+    private NotificationService notificationService;
+
 
     @Override
     public Product save(Product product) {
-        return productRepository.save(product);
+        Product newProduct =productRepository.save(product);
+        notificationService.notifyAllFollowers(product.getSeller(),"A new product "+product.getTitle()+" has been added by "+product.getSeller().getUser().getUsername()+" \n"+
+                "http://localhost:8080/products/details/"+product.getId());
+        return newProduct;
     }
 
     @Override
