@@ -2,15 +2,12 @@ package com.project.onlinestore.buyer.controller;
 
 import com.project.onlinestore.buyer.domain.Cart;
 import com.project.onlinestore.buyer.service.BuyerService;
-import com.project.onlinestore.buyer.service.CartServiceImpl;
+import com.project.onlinestore.buyer.service.CartService;
 import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -18,7 +15,7 @@ import java.security.Principal;
 @Controller
 public class CartController {
     @Autowired
-    private CartServiceImpl service;
+    CartService cartService;
 
     @Autowired
     FileService fileService;
@@ -53,12 +50,18 @@ public class CartController {
     @GetMapping("/cart/add/{id}")
     public String addToCart(@PathVariable("id") Long productId, Principal principal) {
         String username = principal.getName();
-        service.addToCart(productId, username, 1);
+        cartService.addToCart(productId, username, 1);
         return "redirect:/buyer/cart";
     }
 
     @GetMapping("/buyer/cart")
     public String showCart() {
         return "/pages/buyer/cart";
+    }
+
+    @PostMapping("/buyer/cart/delete")
+    public String deleteLine(Long line_id,Principal principal) {
+        cartService.removeLine(principal.getName(),line_id);
+        return "redirect:/buyer/cart";
     }
 }

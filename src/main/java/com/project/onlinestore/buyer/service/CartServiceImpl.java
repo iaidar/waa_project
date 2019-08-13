@@ -1,26 +1,28 @@
 package com.project.onlinestore.buyer.service;
 
-import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.buyer.domain.Cart;
 import com.project.onlinestore.buyer.domain.Line;
 import com.project.onlinestore.buyer.repository.CartRepository;
-import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.product.service.ProductService;
-import com.project.onlinestore.security.domain.User;
-import com.project.onlinestore.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class CartServiceImpl implements CartService {
     @Autowired
     private ProductService productService;
 
     @Autowired
-    private CartRepository repository;
+    private CartRepository cartRepository;
 
     @Autowired
     private BuyerService buyerService;
+
+    @Autowired
+    LineService lineService;
 
     public Cart addToCart(Long productId, String username, int quantity) {
         Line line = new Line();
@@ -32,6 +34,18 @@ public class CartServiceImpl implements CartService {
             cart = new Cart();
         cart.addLine(line);
 
-        return repository.save(cart);
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public void removeLine(String username, Long lineId) {
+        Cart cart= buyerService.getBuyerByUsername(username).getCart();
+        cart.getLines().remove(lineService.getLineById(lineId));
+        saveCart(cart);
+    }
+
+    @Override
+    public void saveCart(Cart cart) {
+        cartRepository.save(cart);
     }
 }
