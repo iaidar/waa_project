@@ -64,4 +64,9 @@ public class CartController {
         cartService.removeLine(principal.getName(),line_id);
         return "redirect:/buyer/cart";
     }
+
+    @GetMapping("/cart/checkout")
+    public String checkout(Principal principal) {
+        return "pages/buyer/checkout";
+    }
 }
