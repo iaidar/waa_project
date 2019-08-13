@@ -37,22 +37,25 @@
                             <dt>Description</dt>
                             <dd><p th:text="${product.description}"></p></dd>
                         </dl>
-                       <!-- item-property-hor .// -->
+                        <!-- item-property-hor .// -->
 
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <dl class="param param-inline">
-                                    <dt>Quantity</dt>
-                                    <dd>
-                                        <input type="text" class="form-control">
-                                    </dd>
-                                </dl>  <!-- item-property .// -->
-                            </div> <!-- col.// -->
-                        </div> <!-- row.// -->
-                        <hr>
-                        <a href="#" class="btn btn-lg btn-outline-primary text-uppercase">Add to cart </a>
-                        <hr>
+                        <form method="get" th:action="@{/cart/add/{id}(id=${product.id})}">
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <dl class="param param-inline">
+                                        <dt>Quantity</dt>
+                                        <dd>
+                                            <input type="text" min="1" name="qty" class="form-control">
+                                        </dd>
+                                    </dl>  <!-- item-property .// -->
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr>
+                            <input type="submit" th:href="@{/cart/add/{id}(id=${product.id})}"
+                               class="btn btn-lg btn-outline-primary text-uppercase" value="Add to cart"> </input>
+                            <hr>
+                        </form>
                         <div class="row">
                             <div class="col-sm-5">
                                 <dl class="param param-inline">
@@ -60,10 +63,11 @@
                                     <dd>
                                         <span th:text="${product.seller}"></span>
                                         <br>
-                                        <form id="followForm" >
+                                        <form id="followForm">
                                             <input hidden name="sellerId" th:value="${product.seller.id}"/>
                                             <input hidden name="isFollow" th:value="${follow}"/>
-                                            <button  th:class="${follow}?'btn btn-danger':'btn btn-success'" type="submit" id="followBtn">
+                                            <button th:class="${follow}?'btn btn-danger':'btn btn-success'"
+                                                    type="submit" id="followBtn">
                                                 <span th:text="${follow}?Unfollow:Follow"></span>
                                             </button>
                                         </form>
