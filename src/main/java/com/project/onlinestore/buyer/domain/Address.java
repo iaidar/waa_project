@@ -27,4 +27,7 @@ public class Address {
 
     @Size(min=5,max = 5,message = "{Size.zipcode}")
     private String zipCode;
+
+    @NotBlank
+    private String name;
 }

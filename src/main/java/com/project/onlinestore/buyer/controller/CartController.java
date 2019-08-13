@@ -1,15 +1,18 @@
 package com.project.onlinestore.buyer.controller;
 
 import com.project.onlinestore.buyer.domain.Cart;
+import com.project.onlinestore.buyer.domain.Order;
 import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.buyer.service.CartService;
 import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -68,5 +71,11 @@ public class CartController {
     @GetMapping("/cart/checkout")
     public String checkout(Principal principal) {
         return "pages/buyer/checkout";
+    }
+
+    @PostMapping("/cart/purchase")
+    public String saveOrder(@ModelAttribute @Valid Order order, BindingResult result) {
+        cartService.removeLine(principal.getName(),line_id);
+        return "redirect:/buyer/cart";
     }
 }
