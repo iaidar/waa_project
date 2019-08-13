@@ -46,7 +46,7 @@
         <td><a th:href="@{/products/list}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
         <td colspan="1" class="hidden-xs"></td>
         <td class="hidden-xs text-center"><strong th:text="${cart.getTotal()}+'$'"></strong></td>
-        <td><a href="@{/cart/checkout}" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+        <td><a th:href="@{/cart/checkout}" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
     </tr>
     </tfoot>
 </table>
