@@ -2,6 +2,8 @@ package com.project.onlinestore.notification.repository;
 
 import com.project.onlinestore.notification.domain.Notification;
 import com.project.onlinestore.security.domain.User;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends CrudRepository<Notification,Long> {
-    int countAllByUser(User user);
+    int countAllByUserAndSeenIsFalse(User user);
     List<Notification> findByUserOrderByLocalDateTimeDesc(User user);
+    @Modifying
+    @Query("update Notification n set n.seen = 1 ")
+    void makeAllNotificationsSeen();
 }

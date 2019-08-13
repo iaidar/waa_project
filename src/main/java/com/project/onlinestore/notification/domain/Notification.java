@@ -24,6 +24,8 @@ public class Notification {
 
     private String link;
 
+    private boolean seen;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 }

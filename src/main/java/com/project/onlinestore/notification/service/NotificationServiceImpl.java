@@ -35,7 +35,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public int countUnseenNotifications(String username) {
-        return notificationRepository.countAllByUser(userService.findUserByUserName(username));
+        return notificationRepository.countAllByUserAndSeenIsFalse(userService.findUserByUserName(username));
     }
 
     @Override
@@ -50,6 +50,11 @@ public class NotificationServiceImpl implements NotificationService {
             User user = buyer.getUser();
             save(user,message,link);
         }
+    }
+
+    @Override
+    public void makeAllNotificationsSeen() {
+        this.notificationRepository.makeAllNotificationsSeen();
     }
 
 }

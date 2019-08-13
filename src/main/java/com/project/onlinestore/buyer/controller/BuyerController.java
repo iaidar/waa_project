@@ -59,6 +59,7 @@ public class BuyerController {
     @GetMapping("/notifications")
     public String getNotifications(Model model,Principal principal){
         model.addAttribute("notifications",notificationService.getUnseenNotifications(principal.getName()));
+        notificationService.makeAllNotificationsSeen();
         return "pages/buyer/notifications";
     }
 }
