@@ -1,12 +1,17 @@
 package com.project.onlinestore.seller.domain;
 
+import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.security.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.mapping.FetchProfile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,9 +29,8 @@ public class Seller {
     @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
     private List<Product> products;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-
-    private List<Seller> followers;
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Buyer> followers;
 
     @Override
     public String toString() {

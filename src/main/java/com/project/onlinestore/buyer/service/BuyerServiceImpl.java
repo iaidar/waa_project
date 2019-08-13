@@ -42,6 +42,7 @@ public class BuyerServiceImpl implements BuyerService {
         if (buyer.getFollowing()==null)
             buyer.setFollowing(new ArrayList<>());
         buyer.getFollowing().add(sellerRepository.findById(sellerId).get());
+        buyerReposiotry.save(buyer);
         return true;
     }
 
@@ -51,6 +52,7 @@ public class BuyerServiceImpl implements BuyerService {
         if (buyer.getFollowing()==null)
             buyer.setFollowing(new ArrayList<>());
         buyer.getFollowing().remove(sellerRepository.findById(sellerId).get());
+        buyerReposiotry.save(buyer);
         return true;
     }
 

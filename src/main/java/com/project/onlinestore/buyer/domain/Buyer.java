@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class Buyer {
     @OneToOne
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "SELLER_FOLLOWERS",joinColumns = @JoinColumn(name = "followers_id"),inverseJoinColumns = @JoinColumn(name = "seller_id"))
     private List<Seller> following;
 }

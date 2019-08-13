@@ -53,17 +53,24 @@
                         <hr>
                         <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i
                                 class="fas fa-shopping-cart"></i> Add to cart </a>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <dl class="param param-inline">
+                                    <dt>Seller | <span th:text="${product.seller}"></span></dt>
+                                    <dd>
+                                        <form id="followForm" >
+                                            <input hidden name="sellerId" th:value="${product.seller.id}"/>
+                                            <input hidden name="isFollow" th:value="${follow}"/>
+                                            <button  th:class="${follow}?'btn btn-danger':'btn btn-success'" type="submit" id="followBtn">
+                                                <span th:text="${follow}?Unfollow:Follow"></span>
+                                            </button>
+                                        </form>
+                                    </dd>
+                                </dl>  <!-- item-property .// -->
+                            </div> <!-- col.// -->
+                        </div>
                     </article> <!-- card-body.// -->
-                    <article>
-                        Seller: <span th:text="${product.seller}"></span>
-                        <form id="followForm" >
-                            <input hidden name="sellerId" th:value="${product.seller.id}"/>
-                            <input hidden name="isFollow" th:value="${follow}"/>
-                            <input th:value="${follow}?Unfollow:Follow" type="submit" id="followBtn"/>
-                        </form>
-
-                                <!--th:onclick="'follow(\'' +${follow} +'\',\''+${product.seller.id}+'\')'"></button>-->
-                    </article>
                 </aside> <!-- col.// -->
             </div> <!-- row.// -->
         </div>

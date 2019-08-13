@@ -34,12 +34,12 @@ public class BuyerController {
         return "pages/buyer/home";
     }
 
-    @PostMapping("/follow/{id}")
+    @GetMapping("/follow/{id}")
     public @ResponseBody void follow(@PathVariable Long id, Principal principal){
         buyerService.follow(principal.getName(),id);
     }
 
-    @PostMapping("/unfollow/{id}")
+    @GetMapping("/unfollow/{id}")
     public @ResponseBody void unfollow(@PathVariable Long id, Principal principal){
         buyerService.unfollow(principal.getName(),id);
     }
