@@ -20,9 +20,9 @@ public class Notification {
 
     private String message;
 
-    private Boolean seen;
-
     private LocalDateTime localDateTime;
+
+    private String link;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;

@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends CrudRepository<Notification,Long> {
-    int countAllByUserAndSeenFalse(User user);
-    List<Notification> findByUserAndSeenFalseOrderByLocalDateTime(User user);
-    List<Notification> findByUserOrderByLocalDateTime(User user);
+    int countAllByUser(User user);
+    List<Notification> findByUserOrderByLocalDateTimeDesc(User user);
 }

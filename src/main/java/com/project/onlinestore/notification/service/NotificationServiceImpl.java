@@ -24,9 +24,9 @@ public class NotificationServiceImpl implements NotificationService {
     UserService userService;
 
     @Override
-    public Notification save(User user,String message) {
+    public Notification save(User user,String message,String link) {
         Notification notification = new Notification();
-        notification.setSeen(false);
+        notification.setLink(link);
         notification.setLocalDateTime(LocalDateTime.now());
         notification.setMessage(message);
         notification.setUser(user);
@@ -34,27 +34,21 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void seen(Notification notification) {
-        notification.setSeen(true);
-        notificationRepository.save(notification);
-    }
-
-    @Override
     public int countUnseenNotifications(String username) {
-        return notificationRepository.countAllByUserAndSeenFalse(userService.findUserByUserName(username));
+        return notificationRepository.countAllByUser(userService.findUserByUserName(username));
     }
 
     @Override
     public List<Notification> getUnseenNotifications(String username) {
-        return notificationRepository.findByUserAndSeenFalseOrderByLocalDateTime(userService.findUserByUserName(username));
+        return notificationRepository.findByUserOrderByLocalDateTimeDesc(userService.findUserByUserName(username));
     }
 
     @Override
-    public void notifyAllFollowers(Seller seller, String message) {
+    public void notifyAllFollowers(Seller seller, String message,String link) {
         List<Buyer> buyers = seller.getFollowers();
         for (Buyer buyer:buyers){
             User user = buyer.getUser();
-            save(user,message);
+            save(user,message,link);
         }
     }
 

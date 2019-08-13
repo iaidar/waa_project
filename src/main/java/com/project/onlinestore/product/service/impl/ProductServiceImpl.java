@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         Product newProduct =productRepository.save(product);
-        notificationService.notifyAllFollowers(product.getSeller(),"A new product "+product.getTitle()+" has been added by "+product.getSeller().getUser().getUsername()+" \n"+
+        notificationService.notifyAllFollowers(product.getSeller(),"A new product "+product.getTitle()+" has been added by "+product.getSeller().getUser().getUsername(),
                 "http://localhost:8080/products/details/"+product.getId());
         return newProduct;
     }

@@ -8,6 +8,7 @@ import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,5 +54,11 @@ public class BuyerController {
     @GetMapping("/unfollow/{id}")
     public @ResponseBody void unfollow(@PathVariable Long id, Principal principal){
         buyerService.unfollow(principal.getName(),id);
+    }
+
+    @GetMapping("/notifications")
+    public String getNotifications(Model model,Principal principal){
+        model.addAttribute("notifications",notificationService.getUnseenNotifications(principal.getName()));
+        return "pages/buyer/notifications";
     }
 }
