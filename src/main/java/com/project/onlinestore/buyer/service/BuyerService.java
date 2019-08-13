@@ -9,4 +9,5 @@ public interface BuyerService {
     Boolean follow(String buyername,Long sellerId);
     Boolean unfollow(String buyername,Long sellerId);
     boolean isFollowed(Buyer buyer, Seller seller);
+    int countLinesNumber(String username);
 }

@@ -39,6 +39,11 @@ public class BuyerController {
         return notificationService.countUnseenNotifications(principal.getName());
     }
 
+    @ModelAttribute("line_number")
+    private int getLinesNumber(Principal principal){
+        return buyerService.countLinesNumber(principal.getName());
+    }
+
 
 
     @GetMapping("/")
@@ -63,8 +68,5 @@ public class BuyerController {
         return "pages/buyer/notifications";
     }
 
-    @GetMapping("/cart")
-    public String showCart() {
-        return "/pages/buyer/cart";
-    }
+
 }

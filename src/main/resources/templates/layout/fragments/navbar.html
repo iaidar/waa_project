@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar" xmlns:th=""
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     xmlns:th="">
     <a class="navbar-brand" href="#">Mamazon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarNav" data-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -15,7 +16,7 @@
             </li>
             <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
                 <a href="#" th:href="@{/buyer/notifications}">
-                    <button type="button" class="btn btn-primary">
+                    <button class="btn btn-primary" type="button">
                         Notifications <span class="badge badge-light" th:text="${notification_number}"></span>
                     </button>
                 </a>
@@ -26,23 +27,24 @@
         <ul class="navbar-nav ml-auto">
             <!--Cart-->
             <li class="nav-item  mr-2" sec:authorize="hasAuthority('BUYER')">
-                <a th:title="edit" class="btn btn-primary" th:href="@{/cart}">
+                <a class="btn btn-primary" th:href="@{/buyer/cart}" th:title="Cart">
                     <i class="material-icons">
                         shopping_cart
                     </i>
+                    <span class="badge badge-light" th:text="${line_number}"></span>
                 </a>
             </li>
 
 
             <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0" th:method="post" th:action="@{/logout}"
-                      sec:authorize="isAuthenticated()">
-                    <span sec:authentication="name" class="mr-4 text-light"></span>
+                <form class="form-inline my-2 my-lg-0" sec:authorize="isAuthenticated()" th:action="@{/logout}"
+                      th:method="post">
+                    <span class="mr-4 text-light" sec:authentication="name"></span>
 
 
-            <!--End of cart-->
-            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
-            </form>
+                    <!--End of cart-->
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                </form>
             </li>
         </ul>
     </div>

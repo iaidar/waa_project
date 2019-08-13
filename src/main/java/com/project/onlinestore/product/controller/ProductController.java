@@ -43,6 +43,11 @@ public class ProductController {
         return notificationService.countUnseenNotifications(principal.getName());
     }
 
+    @ModelAttribute("line_number")
+    private int getLinesNumber(Principal principal){
+        return buyerService.countLinesNumber(principal.getName());
+    }
+
     @Autowired
     public ProductController(ProductService productService, FileService fileService,BuyerService buyerService, NotificationService notificationService) {
         this.productService = productService;

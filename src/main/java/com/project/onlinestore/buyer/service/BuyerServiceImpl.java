@@ -63,5 +63,10 @@ public class BuyerServiceImpl implements BuyerService {
         return buyer.getFollowing().contains(seller);
     }
 
+    @Override
+    public int countLinesNumber(String username) {
+        return getBuyerByUsername(username).getCart().getLines().size();
+    }
+
 
 }
