@@ -63,7 +63,7 @@ label {
     font-size: 24px;
 }
 
-.btn {
+.btn-purchase {
     background-color: #4CAF50;
     color: white;
     padding: 12px;
@@ -75,7 +75,7 @@ label {
     font-size: 17px;
 }
 
-.btn:hover {
+.btn-purchase {
     background-color: #45a049;
 }
 

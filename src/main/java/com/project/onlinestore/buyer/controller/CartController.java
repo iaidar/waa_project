@@ -69,13 +69,16 @@ public class CartController {
     }
 
     @GetMapping("/cart/checkout")
-    public String checkout(Principal principal) {
+    public String checkout(@ModelAttribute Order order, Principal principal) {
         return "pages/buyer/checkout";
     }
 
     @PostMapping("/cart/purchase")
-    public String saveOrder(@ModelAttribute @Valid Order order, BindingResult result) {
-        cartService.removeLine(principal.getName(),line_id);
-        return "redirect:/buyer/cart";
+    public String saveOrder(@Valid @ModelAttribute("order") Order order, BindingResult result) {
+        if (result.hasErrors()){
+            return "pages/buyer/checkout";
+        }
+
+        return "redirect:/products/list";
     }
 }
