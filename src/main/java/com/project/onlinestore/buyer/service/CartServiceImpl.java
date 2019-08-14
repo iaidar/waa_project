@@ -53,4 +53,12 @@ public class CartServiceImpl implements CartService {
     public Cart getById(Long cartId) {
         return cartRepository.findById(cartId).get();
     }
+
+    @Override
+    public void updateLine(String username, Long lineId, Integer qty) {
+        Cart cart= buyerService.getBuyerByUsername(username).getCart();
+        int index = cart.getLines().indexOf(lineService.getLineById(lineId));
+        cart.getLines().get(index).setQty(qty);
+        cartRepository.save(cart);
+    }
 }
