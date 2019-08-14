@@ -4,7 +4,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Home</title>
+    <title>Pending Users</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
 <body>
 <div layout:fragment="content" class="container mt-4">
@@ -17,7 +18,7 @@
         </button>
     </div>
 
-    <h1>Good Morning Admin <span sec:authentication="name"></span></h1>
+    <h1>Hello Admin <span sec:authentication="name"></span></h1>
     <h2>Pending users</h2>
 
     <table class="table">
