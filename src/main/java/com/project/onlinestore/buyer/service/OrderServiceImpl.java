@@ -26,13 +26,14 @@ public class OrderServiceImpl implements OrderService {
     BuyerService buyerService;
 
     @Override
-    public void saveOrder(Order order, Long cartId,String username) {
+    public Order saveOrder(Order order, Long cartId,String username) {
         order.setLocalDateTime(LocalDateTime.now());
         Cart cart = cartService.getById(cartId);
         order.setLines(getCopyOfLines(cart.getLines()));
         order.setBuyer(buyerService.getBuyerByUsername(username));
-        orderRepository.save(order);
+        Order newOrder = orderRepository.save(order);
         buyerService.removeCartAndUpdatePoints(username,order.getPointUsed());
+        return newOrder;
     }
 
     @Override

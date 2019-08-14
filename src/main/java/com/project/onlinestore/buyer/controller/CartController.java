@@ -107,9 +107,9 @@ public class CartController {
             return "pages/buyer/checkout";
         }
 
-        orderService.saveOrder(order,getCart(principal).getId(),principal.getName());
+        Order newOrder=orderService.saveOrder(order,getCart(principal).getId(),principal.getName());
 
-        return "redirect:/products/list";
+        return "redirect:/buyer/orders/"+newOrder.getId();
     }
 
     private BindingResult ignoreFieldsContaining(String ignoreString, BindingResult result,Order order){

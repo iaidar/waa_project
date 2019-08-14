@@ -38,14 +38,14 @@
                 <input type="hidden" th:value="${line.id}" name="line_id">
                 <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
             </form>
-        </td>
+        </td>-
     </tr>
     </tbody>
     <tfoot>
     <tr>
         <td><a th:href="@{/products/list}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
         <td colspan="1" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong th:text="${cart.getTotal()}+'$'"></strong></td>
+        <td class="hidden-xs text-center"><strong th:text="'$'+${cart.getTotal()}"></strong></td>
         <td><a th:href="@{/cart/checkout}" th:class="${cart.getTotal()}==0.0?'btn inactiveLink btn-block btn-light':'btn btn-success btn-block'" >Checkout <i class="fa fa-angle-right"></i></a></td>
     </tr>
     </tfoot>
