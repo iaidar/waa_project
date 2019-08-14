@@ -35,6 +35,11 @@ public class OrderServiceImpl implements OrderService {
         buyerService.removeCartAndUpdatePoints(username,order.getPointUsed());
     }
 
+    @Override
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).get();
+    }
+
     private List<Line> getCopyOfLines(List<Line> lines){
         List<Line> newLines = new ArrayList<>();
 

@@ -3,6 +3,7 @@ package com.project.onlinestore.buyer.controller;
 import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.buyer.domain.Order;
 import com.project.onlinestore.buyer.service.BuyerService;
+import com.project.onlinestore.buyer.service.OrderService;
 import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.seller.domain.Seller;
@@ -27,6 +28,9 @@ public class BuyerController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    OrderService orderService;
 
 
     @ModelAttribute("link")
@@ -75,8 +79,8 @@ public class BuyerController {
     }
 
     @GetMapping("/orders/{id}")
-    public String orderDetails(@ModelAttribute("order")Order order, Model model){
-        model.addAttribute("order",order);
+    public String orderDetails(@PathVariable Long id,Model model){
+        model.addAttribute("order",orderService.getOrderById(id));
         return "pages/orders/details";
     }
 
