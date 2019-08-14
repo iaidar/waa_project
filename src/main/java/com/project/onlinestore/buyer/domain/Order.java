@@ -6,6 +6,7 @@ import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -37,5 +38,7 @@ public class Order {
     private List<Line> lines;
 
     private int status=1;
+
+    private LocalDateTime localDateTime;
 
 }

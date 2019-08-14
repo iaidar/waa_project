@@ -25,7 +25,7 @@ public class Address {
     @Size(min = 2,max=2, message = "{Size.state}")
     private String state;
 
-    @Size(min=5,max = 5,message = "{Size.zipcode}")
+    @Size(min=5,max = 5,message = "{Size.zipCode}")
     private String zipCode;
 
     @NotBlank

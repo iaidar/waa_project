@@ -1,6 +1,7 @@
 package com.project.onlinestore.buyer.service;
 
 import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.domain.Cart;
 import com.project.onlinestore.buyer.repository.BuyerReposiotry;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.service.UserService;
@@ -66,6 +67,13 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public int countLinesNumber(String username) {
         return getBuyerByUsername(username).getCart().getLines().size();
+    }
+
+    @Override
+    public void removeCart(String username) {
+        Buyer buyer= getBuyerByUsername(username);
+        buyer.setCart(new Cart());
+        save(buyer);
     }
 
 

@@ -21,6 +21,6 @@ public class Payment {
     @NotBlank
     private String name;
 
-    @Size(min=16,max = 16, message = "{Size.cardnumber}")
+    @Size(min=16,max = 16, message = "{Size.cardNumber}")
     private String cardNumber;
 }

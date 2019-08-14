@@ -15,6 +15,7 @@
 <body>
 <div layout:fragment="content" class="container mt-4">
 
+
     <div class="row mt-4">
         <form th:action="@{/cart/purchase}" method="post" th:object="${order}">
             <div class="row">
@@ -22,43 +23,51 @@
                     <h3>Shipping Address</h3>
                     <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                     <input type="text" id="fname" th:field="*{shippingAddress.name}" placeholder="John">
+                    <label th:if="${#fields.hasErrors('shippingAddress.name')}" th:errors="*{shippingAddress.name}" class="text-danger"></label>
                     <label for="adr"><i class="fa fa-address-card-o"></i> Street</label>
                     <input type="text" id="adr" th:field="*{shippingAddress.street}" name="address"
                            placeholder="542.15thStreet">
+                    <label th:if="${#fields.hasErrors('shippingAddress.street')}" th:errors="*{shippingAddress.street}" class="text-danger"></label>
 
                     <div class="row">
                         <div class="col-50">
                             <label for="state">State</label>
                             <input type="text" th:field="*{shippingAddress.state}" id="state" name="state"
                                    placeholder="NY">
+                            <label th:if="${#fields.hasErrors('shippingAddress.state')}" th:errors="*{shippingAddress.state}" class="text-danger"></label>
                         </div>
                         <div class="col-50">
-                            <label for="zip">Zip</label>
-                            <input type="text" th:field="*{shippingAddress.zipCode}" id="zip" name="zip"
+                            <label for="zipcode">Zip</label>
+                            <input type="text" th:field="*{shippingAddress.zipCode}" id="zipCode" name="zipCode"
                                    placeholder="10001">
+                            <label th:if="${#fields.hasErrors('shippingAddress.zipCode')}" th:errors="*{shippingAddress.zipCode}" class="text-danger"></label>
                         </div>
                     </div>
                     <label>
-                        <input type="checkbox" id="sameadr"  name="sameadr"> Billing address same as shipping
+                        <input type="checkbox" id="sameadr" checked  name="sameadr"> Billing address same as shipping
                     </label>
-                    <div id="billing">
+                    <div id="billing" style="display: none;">
                         <h3>Billing Address</h3>
                         <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                         <input type="text" id="fname2" th:field="*{billingAddress.name}" placeholder="John">
+                        <label th:if="${#fields.hasErrors('billingAddress.name')}" th:errors="*{billingAddress.name}" class="text-danger"></label>
                         <label for="adr"><i class="fa fa-address-card-o"></i> Street</label>
                         <input type="text" id="adr2" th:field="*{billingAddress.street}" name="address"
                                placeholder="542.15thStreet">
+                        <label th:if="${#fields.hasErrors('billingAddress.street')}" th:errors="*{billingAddress.street}" class="text-danger"></label>
 
                         <div class="row">
                             <div class="col-50">
                                 <label for="state">State</label>
                                 <input type="text" th:field="*{billingAddress.state}" id="state2" name="state"
                                        placeholder="NY">
+                                <label th:if="${#fields.hasErrors('billingAddress.state')}" th:errors="*{billingAddress.state}" class="text-danger"></label>
                             </div>
                             <div class="col-50">
-                                <label for="zip">Zip</label>
+                                <label for="zipCode">Zip</label>
                                 <input type="text" th:field="*{billingAddress.zipCode}" id="zip2" name="zip"
                                        placeholder="10001">
+                                <label th:if="${#fields.hasErrors('billingAddress.zipCode')}" th:errors="*{billingAddress.zipCode}" class="text-danger"></label>
                             </div>
                         </div>
                     </div>
@@ -75,19 +84,21 @@
                     </div>
                     <label for="cname">Name on Card</label>
                     <input type="text" th:field="*{payment.name}" id="cname" name="cardname" placeholder="JohnMoreDoe">
+                    <label th:if="${#fields.hasErrors('payment.name')}" th:errors="*{payment.name}" class="text-danger"></label>
                     <label for="ccnum">Credit card number</label>
                     <input type="text" th:field="*{payment.cardNumber}" id="ccnum" name="cardnumber"
-                           placeholder="1111-2222-3333-4444">
+                           placeholder="1111222233334444">
+                    <label th:if="${#fields.hasErrors('payment.cardNumber')}" th:errors="*{payment.cardNumber}" class="text-danger"></label>
                     <label for="expmonth">Exp Month</label>
-                    <input type="text" required id="expmonth" name="expmonth" placeholder="September">
+                    <input type="text"  id="expmonth" name="expmonth" placeholder="MM">
                     <div class="row">
                         <div class="col-50">
                             <label for="expyear">Exp Year</label>
-                            <input type="text" required id="expyear" name="expyear" placeholder="2018">
+                            <input type="text"  id="expyear" name="expyear" placeholder="YY">
                         </div>
                         <div class="col-50">
                             <label for="cvv">CVV</label>
-                            <input type="text" required id="cvv" name="cvv" placeholder="352">
+                            <input type="text"  id="cvv" name="cvv" placeholder="XXX">
                         </div>
                     </div>
                 </div>

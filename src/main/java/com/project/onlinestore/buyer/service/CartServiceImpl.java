@@ -48,4 +48,9 @@ public class CartServiceImpl implements CartService {
     public void saveCart(Cart cart) {
         cartRepository.save(cart);
     }
+
+    @Override
+    public Cart getById(Long cartId) {
+        return cartRepository.findById(cartId).get();
+    }
 }

@@ -11,6 +11,11 @@
     font-weight: 500;
 }
 
+.inactiveLink {
+    pointer-events: none;
+    cursor: default;
+}
+
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
 }
