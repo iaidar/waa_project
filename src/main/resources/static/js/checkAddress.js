@@ -8,4 +8,8 @@ $(document).ready(function () {
         }
     });
 
+    function qteChanged() {
+        console.log("changed")
+    }
+
 });
