@@ -27,12 +27,22 @@
         </thead>
         <tbody>
         <tr th:each="order: ${orders}">
-            <th scope="row" th:text="${order.id}">1</th>
+            <td scope="row" th:text="${order.id}">1</td>
             <td th:text="${order.getLocalDateTime()}">Mark</td>
             <td th:text="${order.pointUsed}">Otto</td>
             <td th:text="${order.getTotal()}">Otto</td>
-            <td th:text="${order.status}">@mdo</td>
-            <td><a th:href="@{/buyer/orders/{id}(id=${order.id})}">details</a></td>
+            <td>
+                <p>
+                    <span class="status text-warning" style="font-size: 35px">&bull;</span>
+                    <span th:text="${order.getStatusText()}" ></span>
+                </p>
+            </td>
+            <td>
+                <a th:href="@{/buyer/orders/{id}(id=${order.id})}" class="btn btn-info">details</a> <br>
+<!--                <form th:action="@{/buyer/orders/cancel/{id}(id=${order.id})}" method="post">-->
+<!--                    <input type="submit" value="cancel order" class="btn btn-danger">-->
+<!--                </form>-->
+            </td>
         </tr>
         </tbody>
     </table>

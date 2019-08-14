@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "Orders")
 public class Order {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -49,6 +50,21 @@ public class Order {
             total += line.getPrice();
         }
         return total-(double) pointUsed/100;
+    }
+
+    public String getStatusText() {
+        switch (this.status) {
+            case 1:
+                return "pending";
+            case 2:
+                return "on way";
+            case 3:
+                return "delivred";
+            case 4:
+                return "canceled";
+            default:
+                return "undefined";
+        }
     }
 
 }

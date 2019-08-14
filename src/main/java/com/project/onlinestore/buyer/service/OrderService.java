@@ -9,4 +9,5 @@ public interface OrderService {
     Order saveOrder(Order order,Long cartId,String username);
     Order getOrderById(Long id);
     List<Order> findAllByBuyer(Buyer buyer);
+    void save(Order order);
 }

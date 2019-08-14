@@ -91,4 +91,12 @@ public class BuyerController {
         return "pages/buyer/myorders";
     }
 
+    @PostMapping("/orders/cancel/{id}")
+    public String cancelOrder(@PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        order.setStatus(4);
+        orderService.save(order);
+        return "redirect:/buyer/myorders";
+    }
+
 }

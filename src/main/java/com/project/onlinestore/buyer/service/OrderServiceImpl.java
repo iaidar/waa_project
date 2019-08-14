@@ -47,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAllByBuyer(buyer);
     }
 
+    @Override
+    public void save(Order order) {
+        this.orderRepository.save(order);
+    }
+
 
     private List<Line> getCopyOfLines(List<Line> lines){
         List<Line> newLines = new ArrayList<>();
