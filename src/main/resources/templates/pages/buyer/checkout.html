@@ -39,9 +39,9 @@
                         </div>
                     </div>
                     <label>
-                        <input type="checkbox" checked="checked" name="sameadr"> Billing address same as shipping
+                        <input type="checkbox" id="sameadr"  name="sameadr"> Billing address same as shipping
                     </label>
-                    <div>
+                    <div id="billing">
                         <h3>Billing Address</h3>
                         <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                         <input type="text" id="fname2" th:field="*{billingAddress.name}" placeholder="John">
