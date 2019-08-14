@@ -18,4 +18,11 @@ public class LineServiceImpl implements LineService {
     public Line getLineById(Long id) {
         return lineRepository.findById(id).get();
     }
+
+    @Override
+    public void updateQty(int qty, Long lineId) {
+        Line line = this.lineRepository.findById(lineId).get();
+        line.setQty(qty);
+        lineRepository.save(line);
+    }
 }

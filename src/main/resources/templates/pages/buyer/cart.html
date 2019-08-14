@@ -31,7 +31,7 @@
         </td>
         <td data-th="Price" th:text="${line.product.price}"></td>
         <td data-th="Quantity">
-            <input type="number" min="1" class="form-control text-center" th:value="${line.qty}" th:onchange="qteChanged">
+            <input type="number" min="1" class="form-control text-center qtyChange" th:value="${line.qty}"  th:title="${line.id}">
         </td>
         <td class="actions" data-th="">
             <form th:action="@{/buyer/cart/delete/}" method="post">
@@ -53,6 +53,8 @@
 
 </div>
 
-
+<div layout:fragment="additional_js">
+    <script th:src="@{/js/cart.js}"></script>
+</div>
 </body>
 </html>

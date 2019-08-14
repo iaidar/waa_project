@@ -125,4 +125,10 @@ public class CartController {
 
         return  newResult;
     }
+
+    @GetMapping("/buyer/updateline/{id}/{qty}")
+    @ResponseBody
+    private void updateQty(@PathVariable Long id, @PathVariable int qty,Principal principal) {
+        cartService.updateLine(principal.getName(),id,qty);
+    }
 }
