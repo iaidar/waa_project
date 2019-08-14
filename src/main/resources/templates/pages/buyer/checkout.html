@@ -12,12 +12,12 @@
 <div layout:fragment="content" class="container mt-4">
 
     <div class="row mt-4">
-            <form action="">
+            <form th:action="@{/cart/purchase}" method="post" th:object="${order}">
                 <div class="row">
                     <div class="col-50">
-                        <h3>Billing Address</h3>
+                        <h3>Shipping Address</h3>
                         <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                        <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                        <input type="text" id="fname" name="firstname" th:field="*{shippingname}" placeholder="John M. Doe">
                         <label for="email"><i class="fa fa-envelope"></i> Email</label>
                         <input type="text" id="email" name="email" placeholder="john@example.com">
                         <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
