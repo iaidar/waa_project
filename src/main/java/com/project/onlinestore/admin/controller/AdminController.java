@@ -20,31 +20,36 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @GetMapping("/")
-    public String home(@ModelAttribute Ad ad, Model model){
+    @GetMapping("/pendingUsers")
+    public String getPendingUsers(Model model){
         model.addAttribute("pendingSellers",adminService.getPendingSellers());
-        return "pages/admin/home";
+        return "pages/admin/pendingUsers";
     }
 
     @PostMapping("/accept/{id}")
     public String acceptSeller(@PathVariable Long id,RedirectAttributes redirectAttributes){
         adminService.acceptSeller(id);
         redirectAttributes.addFlashAttribute("successMessage", "Seller has been accepted!");
-        return "redirect:/admin/";
+        return "redirect:/admin/pendingUsers";
     }
 
     @PostMapping("/reject/{id}")
     public String rejectSeller(@PathVariable Long id,RedirectAttributes redirectAttributes){
         adminService.rejectSeller(id);
         redirectAttributes.addFlashAttribute("successMessage", "Seller has been rejected!");
-        return "redirect:/admin/";
+        return "redirect:/admin/pendingUsers";
+    }
+
+    @GetMapping("/adChange")
+    public String home(@ModelAttribute Ad ad, Model model){
+        return "pages/admin/adChange";
     }
 
     @PostMapping("/adChange")
     public String changeAd(@Valid @ModelAttribute("ad") Ad ad, BindingResult result, HttpServletRequest request,
                            RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
-            return "pages/admin/home";
+            return "pages/admin/adChange";
         }
         MultipartFile productImage = ad.getImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
@@ -52,7 +57,7 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("successMessage", "Ad has been changed successfully!");
             adminService.changeAd(ad,rootDirectory);
         }
-        return "redirect:/admin/";
+        return "redirect:/admin/adChange";
     }
 
 

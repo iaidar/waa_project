@@ -53,7 +53,7 @@ public class BuyerController {
 
     @GetMapping("/")
     public String home(){
-        return "pages/buyer/home";
+        return "redirect:/products/list";
     }
 
     @GetMapping("/follow/{id}")

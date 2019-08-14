@@ -20,11 +20,11 @@ public class UserController {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findUserByUserName(auth.getName());
             if (user.getRole().getId()== SecurityConstants.ROLE_ADMIN)
-                return "redirect:/admin/";
+                return "redirect:/admin/pendingUsers";
             if (user.getRole().getId()== SecurityConstants.ROLE_BUYER)
-                return "redirect:/buyer/";
+                return "redirect:/products/list";
             if (user.getRole().getId()== SecurityConstants.ROLE_SELLER)
-                return "redirect:/seller/";
-            return "pages/errors/404";
+                return "redirect:/seller/myproducts";
+            return "redirect:/login";
         }
 }

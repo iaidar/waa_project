@@ -43,25 +43,6 @@
         </tbody>
     </table>
 
-    <h3>Change Ads</h3>
-
-    <div class="row">
-        <form enctype="multipart/form-data" th:action="@{/admin/adChange}" th:object="${ad}" method="post" class="col-lg-5">
-            <div class="form-group">
-                URL Link: <input type="text" class="form-control" th:field="*{link}">
-                <label th:if="${#fields.hasErrors('link')}" th:errors="*{link}" class="text-danger"></label>
-            </div>
-            <div class="form-group">
-                Image: <input type="file" class="form-control" th:field="*{image}">
-                <label th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="text-danger"></label>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn-block btn-primary">
-            </div>
-        </form>
-    </div>
-
-
 </div>
 </body>
 </html>

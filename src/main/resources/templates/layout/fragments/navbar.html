@@ -11,6 +11,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" th:href="@{/}">Home</a>
             </li>
+
+            <!-- Admin -->
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/pendingUsers}">Pending Users</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/adChange}">Change Ad</a>
+            </li>
+
+            <!-- Buyer --->
             <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
                 <a class="nav-link" href="#" th:href="@{/products/list}">Products</a>
             </li>
@@ -28,10 +38,20 @@
                 </button>
             </li>
 
+            <!-- Seller -->
+            <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
+                <a class="nav-link" href="#" th:href="@{/seller/myproducts}">My products</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
+                <a class="nav-link" href="#" th:href="@{/seller/products/add}">Add product</a>
+            </li>
+
+
+
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <!--Cart-->
+            <!--   Buyer   -->
             <li class="nav-item  mr-2" sec:authorize="hasAuthority('BUYER')">
                 <a class="btn btn-success" th:href="@{/buyer/cart}" th:title="Cart">
                     <i class="material-icons">

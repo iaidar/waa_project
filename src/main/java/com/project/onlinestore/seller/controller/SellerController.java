@@ -41,11 +41,6 @@ public class SellerController {
         this.fileService = fileService;
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "pages/seller/home";
-    }
-
     @GetMapping("/myproducts")
     public String listSellerProducts(Model model, Principal principal) {
         User user = userService.findUserByUserName(principal.getName());
