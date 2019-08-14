@@ -27,4 +27,6 @@ public class Buyer {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
+
+    private Long points=0L;
 }

@@ -21,6 +21,12 @@
                     </button>
                 </a>
             </li>
+            <li class="nav-item ml-3" sec:authorize="hasAuthority('BUYER')">
+                <button class="btn btn-warning" type="button">
+                    <span class="badge badge-light mr-2" th:text="${points}">0</span>
+                    <span>Points</span>
+                </button>
+            </li>
 
         </ul>
 

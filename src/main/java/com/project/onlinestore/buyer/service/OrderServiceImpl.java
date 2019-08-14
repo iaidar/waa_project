@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
         order.setLines(getCopyOfLines(cart.getLines()));
         order.setBuyer(buyerService.getBuyerByUsername(username));
         orderRepository.save(order);
-        buyerService.removeCart(username);
+        buyerService.removeCartAndUpdatePoints(username);
     }
 
     private List<Line> getCopyOfLines(List<Line> lines){

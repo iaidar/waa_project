@@ -48,6 +48,11 @@ public class ProductController {
         return buyerService.countLinesNumber(principal.getName());
     }
 
+    @ModelAttribute("points")
+    private Long getPoints(Principal principal){
+        return buyerService.getBuyerByUsername(principal.getName()).getPoints();
+    }
+
     @Autowired
     public ProductController(ProductService productService, FileService fileService,BuyerService buyerService, NotificationService notificationService) {
         this.productService = productService;

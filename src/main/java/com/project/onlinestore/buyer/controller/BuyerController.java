@@ -39,6 +39,11 @@ public class BuyerController {
         return notificationService.countUnseenNotifications(principal.getName());
     }
 
+    @ModelAttribute("points")
+    private Long getPoints(Principal principal){
+        return buyerService.getBuyerByUsername(principal.getName()).getPoints();
+    }
+
     @ModelAttribute("line_number")
     private int getLinesNumber(Principal principal){
         return buyerService.countLinesNumber(principal.getName());
