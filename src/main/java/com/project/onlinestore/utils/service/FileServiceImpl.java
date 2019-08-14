@@ -42,7 +42,8 @@ public class FileServiceImpl implements FileService {
             image.transferTo(
                     new File(path+"."+extension));
         } catch (Exception e) {
-            throw new RuntimeException("Product Image saving failed", e);
+            System.out.println(e.getCause());
+            throw new RuntimeException("Image saving failed");
         }
     }
 }
