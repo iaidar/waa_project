@@ -75,8 +75,7 @@ public class BuyerController {
     }
 
     @GetMapping("/orders/{id}")
-    public String orderDetails(@ModelAttribute("order")Order order, Model model){
-        model.addAttribute("order",order);
+    public String orderDetails(Model model){
         return "pages/orders/details";
     }
 
