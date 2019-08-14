@@ -84,4 +84,11 @@ public class BuyerController {
         return "pages/orders/details";
     }
 
+    @GetMapping("/myorders")
+    public String buyerOrders(Model model, Principal principal) {
+        Buyer buyer = buyerService.getBuyerByUsername(principal.getName());
+        model.addAttribute("orders", orderService.findAllByBuyer(buyer));
+        return "pages/buyer/myorders";
+    }
+
 }

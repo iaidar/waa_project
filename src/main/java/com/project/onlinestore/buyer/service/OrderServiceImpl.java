@@ -1,5 +1,6 @@
 package com.project.onlinestore.buyer.service;
 
+import com.project.onlinestore.buyer.domain.Buyer;
 import com.project.onlinestore.buyer.domain.Cart;
 import com.project.onlinestore.buyer.domain.Line;
 import com.project.onlinestore.buyer.domain.Order;
@@ -40,6 +41,12 @@ public class OrderServiceImpl implements OrderService {
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).get();
     }
+
+    @Override
+    public List<Order> findAllByBuyer(Buyer buyer) {
+        return orderRepository.findAllByBuyer(buyer);
+    }
+
 
     private List<Line> getCopyOfLines(List<Line> lines){
         List<Line> newLines = new ArrayList<>();

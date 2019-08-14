@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/buyer_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders</title>
+    <div layout:fragment="additional_css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </div>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Points used</th>
+            <th scope="col">Total price</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order: ${orders}">
+            <th scope="row" th:text="${order.id}">1</th>
+            <td th:text="${order.getLocalDateTime()}">Mark</td>
+            <td th:text="${order.pointUsed}">Otto</td>
+            <td th:text="${order.getTotal()}">Otto</td>
+            <td th:text="${order.status}">@mdo</td>
+            <td><a th:href="@{/buyer/orders/{id}(id=${order.id})}">details</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
