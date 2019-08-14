@@ -4,23 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Order confirmation</title>
+    <script>
+        function printDiv(divId) {
+            printDivCSS = new String ('<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">')
+            window.frames["print_frame"].document.body.innerHTML=printDivCSS + document.getElementById(divId).innerHTML;
+            window.frames["print_frame"].window.focus();
+            window.frames["print_frame"].window.print();
+        }
+    </script>
 </head>
 <body>
 <div layout:fragment="content" class="container mt-4">
 
     <div class="jumbotron text-xs-center">
         <h1 class="display-3">Thank You!</h1>
-        <p class="lead"><strong>Please print your order</strong>. <a th:href="@{/createPdf}"><img th:src="@{/img/pdf.png}" height="50" width="70"></a></p>
+        <p class="lead"><strong>Please print your order</strong>.
+            <a href="javascript:printDiv('printed')" id="print"><img th:src="@{/img/pdf.png}" height="50" width="70"></a>
+        </p>
         <hr>
-        <p><b>Id:</b><span>1234</span></p>
-        <p><b>Product(s):</b></p>
-        <ul>
-            <li>product 1, price: <b>1234</b></li>
-            <li>product 2, price: <b>321</b></li>
-            <li>product 3, price: <b>423</b></li>
-        </ul>
-        <p><b>Points used:</b><span>100</span></p>
-        <h4>Total: <span>120$</span></h4>
+        <div id="printed">
+            <p><b>Id:</b><span>1234</span></p>
+            <p><b>Product(s):</b></p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">title</th>
+                    <th scope="col">Qte</th>
+                    <th scope="col">price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>product1</td>
+                    <td>2</td>
+                    <td>223$</td>
+                </tr>
+                </tbody>
+            </table>
+            <p><b>Points used:</b><span>100</span></p>
+            <h4>Total: <span>120$</span></h4>
+        </div>
         <p>
             Having trouble? <a href="">Contact us</a>
         </p>
@@ -28,7 +53,11 @@
             <a class="btn btn-primary btn-sm" href="https://bootstrapcreative.com/" role="button">Continue to homepage</a>
         </p>
     </div>
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
 
 </div>
+
+
 </body>
 </html>
