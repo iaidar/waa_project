@@ -5,6 +5,7 @@ import com.project.onlinestore.buyer.domain.Order;
 import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.buyer.service.OrderService;
 import com.project.onlinestore.notification.service.NotificationService;
+import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.utils.service.FileService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/buyer")
@@ -88,15 +90,35 @@ public class BuyerController {
     public String buyerOrders(Model model, Principal principal) {
         Buyer buyer = buyerService.getBuyerByUsername(principal.getName());
         model.addAttribute("orders", orderService.findAllByBuyer(buyer));
+        model.addAttribute("status", 0);
         return "pages/buyer/myorders";
     }
 
-    @PostMapping("/orders/cancel/{id}")
-    public String cancelOrder(@PathVariable Long id) {
+
+
+    @PostMapping("/orders/cancel")
+    public String cancelOrder(Long id) {
         Order order = orderService.getOrderById(id);
         order.setStatus(4);
         orderService.save(order);
         return "redirect:/buyer/myorders";
+    }
+
+    @GetMapping("/orders/cancelform/{id}")
+    public String ShowDeleteProductForm(@PathVariable Optional<Long> id, Model model) {
+        if(id.isPresent()) {
+            Order order = orderService.findById(id.get());
+            model.addAttribute("order", order);
+        }
+        return "pages/orders/cancelform";
+    }
+
+    @GetMapping("/pendingorders")
+    public String buyerPendingOrders(Model model, Principal principal) {
+        Buyer buyer = buyerService.getBuyerByUsername(principal.getName());
+        model.addAttribute("orders", orderService.findAllByBuyerAndStatusEquals(buyer, 1));
+        model.addAttribute("status", 1);
+        return "pages/buyer/myorders";
     }
 
 }

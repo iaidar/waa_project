@@ -48,8 +48,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findAllByBuyerAndStatusEquals(Buyer buyer, int status) {
+        return this.orderRepository.findAllByBuyerAndStatusEquals(buyer, status);
+    }
+
+    @Override
     public void save(Order order) {
         this.orderRepository.save(order);
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return orderRepository.findById(id).get();
     }
 
 

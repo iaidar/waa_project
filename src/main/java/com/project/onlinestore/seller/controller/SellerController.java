@@ -85,7 +85,6 @@ public class SellerController {
         if(id.isPresent()) {
             Product product = productService.findById(id.get());
             model.addAttribute("product", product);
-            System.out.println("yes");
         }
         return "pages/products/delete-form";
     }

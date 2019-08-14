@@ -33,15 +33,19 @@
             <td th:text="${order.getTotal()}">Otto</td>
             <td>
                 <p>
-                    <span class="status text-warning" style="font-size: 35px">&bull;</span>
+                    <span th:hidden="${order.status}!=1" class="text-warning" style="font-size: 35px">&bull;</span>
+                    <span th:hidden="${order.status}!=2" class="text-primary" style="font-size: 35px">&bull;</span>
+                    <span th:hidden="${order.status}!=3" class="text-success" style="font-size: 35px">&bull;</span>
+                    <span th:hidden="${order.status}!=4" class="text-danger" style="font-size: 35px">&bull;</span>
                     <span th:text="${order.getStatusText()}" ></span>
                 </p>
             </td>
             <td>
                 <a th:href="@{/buyer/orders/{id}(id=${order.id})}" class="btn btn-info">details</a> <br>
-<!--                <form th:action="@{/buyer/orders/cancel/{id}(id=${order.id})}" method="post">-->
-<!--                    <input type="submit" value="cancel order" class="btn btn-danger">-->
-<!--                </form>-->
+                <a th:title="Cancel" class="btn btn-danger" th:href="@{/buyer/orders/cancelform/{id}(id=${order.id})}"
+                th:if="${status == 1}">
+                    Cancel Order
+                </a>
             </td>
         </tr>
         </tbody>

@@ -42,6 +42,10 @@
                 <a th:href="@{/buyer/myorders}" href="#" class="nav-link">My Orders</a>
             </li>
 
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a th:href="@{/buyer/pendingorders}" href="#" class="nav-link">Pending Orders</a>
+            </li>
+
             <!-- Seller -->
             <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
                 <a class="nav-link" href="#" th:href="@{/seller/myproducts}">My products</a>
