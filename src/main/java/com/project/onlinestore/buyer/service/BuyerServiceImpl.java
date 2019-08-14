@@ -70,9 +70,9 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public void removeCartAndUpdatePoints(String username) {
+    public void removeCartAndUpdatePoints(String username,Long pointsUsed) {
         Buyer buyer= getBuyerByUsername(username);
-        buyer.setPoints(buyer.getPoints()+100);
+        buyer.setPoints(buyer.getPoints()+100-pointsUsed);
         buyer.setCart(new Cart());
         save(buyer);
     }

@@ -41,4 +41,14 @@ public class Order {
 
     private LocalDateTime localDateTime;
 
+    private Long pointUsed=0L;
+
+    public Double getTotal(){
+        Double total = 0.0;
+        for (Line line:lines){
+            total += line.getPrice();
+        }
+        return total-(double) pointUsed/100;
+    }
+
 }

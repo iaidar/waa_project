@@ -70,6 +70,7 @@
                                 <label th:if="${#fields.hasErrors('billingAddress.zipCode')}" th:errors="*{billingAddress.zipCode}" class="text-danger"></label>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -101,6 +102,9 @@
                             <input type="text"  id="cvv" name="cvv" placeholder="XXX">
                         </div>
                     </div>
+                    <label for="points">Points</label>
+                    <input type="number" min="0" th:max="${points}" th:field="*{pointUsed}" id="points" name="points"
+                           placeholder="Use 100 Points as 1$ discount">
                 </div>
 
             </div>

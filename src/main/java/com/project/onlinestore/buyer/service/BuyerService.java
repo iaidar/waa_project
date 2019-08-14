@@ -11,5 +11,5 @@ public interface BuyerService {
     Boolean unfollow(String buyername,Long sellerId);
     boolean isFollowed(Buyer buyer, Seller seller);
     int countLinesNumber(String username);
-    void removeCartAndUpdatePoints(String username);
+    void removeCartAndUpdatePoints(String username,Long pointsUsed);
 }
