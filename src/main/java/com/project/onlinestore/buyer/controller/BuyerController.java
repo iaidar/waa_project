@@ -1,6 +1,7 @@
 package com.project.onlinestore.buyer.controller;
 
 import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.domain.Order;
 import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.security.domain.User;
@@ -73,5 +74,10 @@ public class BuyerController {
         return "pages/buyer/notifications";
     }
 
+    @GetMapping("/orders/{id}")
+    public String orderDetails(@ModelAttribute("order")Order order, Model model){
+        model.addAttribute("order",order);
+        return "pages/orders/details";
+    }
 
 }
