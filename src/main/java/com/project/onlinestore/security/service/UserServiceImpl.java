@@ -1,6 +1,7 @@
 package com.project.onlinestore.security.service;
 
 import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.domain.Cart;
 import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.respository.UserRepository;
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
             newUser = userRepository.save(user);
             Buyer buyer = new Buyer();
             buyer.setUser(newUser);
+            buyer.setCart(new Cart());
             buyerService.save(buyer);
         }
         else if (user.getRole().getId()== SecurityConstants.ROLE_SELLER){
