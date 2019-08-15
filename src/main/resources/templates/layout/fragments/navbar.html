@@ -28,6 +28,9 @@
             <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="#" th:href="@{/admin/orders/shipped}">Shipped Orders</a>
             </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/reviews}">Pending Reviews</a>
+            </li>
 
             <!-- Buyer --->
             <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
@@ -40,6 +43,10 @@
 
             <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
                 <a th:href="@{/buyer/pendingorders}" href="#" class="nav-link">Pending Orders</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a th:href="@{/buyer/reviews}" href="#" class="nav-link">Review Products</a>
             </li>
 
             <!-- Seller -->

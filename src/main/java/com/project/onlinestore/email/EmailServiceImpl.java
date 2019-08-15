@@ -1,5 +1,6 @@
 package com.project.onlinestore.email;
 
+import com.project.onlinestore.review.domain.Review;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.utils.EmailConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,24 @@ public class EmailServiceImpl implements EmailService {
         String to = seller.getEmail();
         String subject = EmailConstants.EMAIL_REJECT_SUBJECT;
         String text = EmailConstants.EMAIL_REJECT_TEXT_START+seller.getUsername()+EmailConstants.EMAIL_REJECT_TEXT_END;
+
+        sendSimpleMessage(to,subject,text);
+    }
+
+    @Override
+    public void sendPendingAcceptanceReview(User buyer, Review review) {
+        String to = buyer.getEmail();
+        String subject = "[Review Accepted]";
+        String text = "Dear Mr "+buyer.getUsername()+","+"\nYour review #"+review.getId()+" for product "+review.getProduct().getTitle()+" has been approved!";
+
+        sendSimpleMessage(to,subject,text);
+    }
+
+    @Override
+    public void sendPendingRejectReview(User buyer,Review review) {
+        String to = buyer.getEmail();
+        String subject = "[Review Accepted]";
+        String text = "Dear Mr "+buyer.getUsername()+","+"\nYour review #"+review.getId()+" for product "+review.getProduct().getTitle()+" has been rejected!";
 
         sendSimpleMessage(to,subject,text);
     }

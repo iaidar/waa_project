@@ -1,6 +1,7 @@
 package com.project.onlinestore.notification.service;
 
 import com.project.onlinestore.notification.domain.Notification;
+import com.project.onlinestore.review.domain.Review;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.seller.domain.Seller;
 
@@ -17,4 +18,7 @@ public interface NotificationService {
     void notifyOrderAdmin(Long orderId);
     void notifyOrderSeller(Long orderId);
     void notifyAdminReview(String username,Long productId);
+    void notifyBuyerReviewAccepted(String username, Long productId);
+    void notifyBuyerReviewRejected(String username, Long productId);
+    void notifySellerReview(String username,Long productId);
 }

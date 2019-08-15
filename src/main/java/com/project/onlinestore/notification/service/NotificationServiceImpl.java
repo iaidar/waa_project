@@ -105,4 +105,28 @@ public class NotificationServiceImpl implements NotificationService {
         String message = "Product #"+productId+" has been reviewed by user "+username;
         save(user,message,link);
     }
+
+    @Override
+    public void notifyBuyerReviewAccepted(String username, Long productId) {
+        User user = userService.findUserByUserName(username);
+        String link = "http://localhost:8080/buyer/product/"+productId+"/reviews";
+        String message = "Your review for Product #"+productId+" has been approved";
+        save(user,message,link);
+    }
+
+    @Override
+    public void notifyBuyerReviewRejected(String username, Long productId) {
+        User user = userService.findUserByUserName(username);
+        String link = "http://localhost:8080/buyer/reviews";
+        String message = "Your review for Product #"+productId+" has been rejected";
+        save(user,message,link);
+    }
+
+    @Override
+    public void notifySellerReview(String username, Long productId) {
+        User user = userService.findUserByUserName(username);
+        String link = "http://localhost:8080/seller/product/"+productId+"/reviews";
+        String message = "Your Product #"+productId+" has a new review";
+        save(user,message,link);
+    }
 }

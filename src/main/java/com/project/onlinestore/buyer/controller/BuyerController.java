@@ -161,4 +161,10 @@ public class BuyerController {
         return "redirect:/buyer/myorders";
     }
 
+    @GetMapping("/reviews")
+    public String getProductsToReview(Model model,Principal principal){
+        model.addAttribute("products",reviewService.getProductsNotReviewed(principal.getName()));
+        return "pages/buyer/productsToReview";
+    }
+
 }

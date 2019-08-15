@@ -5,6 +5,7 @@ import com.project.onlinestore.admin.service.AdminService;
 import com.project.onlinestore.buyer.domain.Order;
 import com.project.onlinestore.buyer.service.OrderService;
 import com.project.onlinestore.notification.service.NotificationService;
+import com.project.onlinestore.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,9 @@ public class AdminController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    ReviewService reviewService;
 
     @ModelAttribute("notification_number_admin")
     private int getNotificationNumber(Principal principal){
@@ -159,5 +163,25 @@ public class AdminController {
         return "pages/admin/deliverform";
     }
 
+
+    @GetMapping("/reviews")
+    public String getPendingReviews(Model model){
+        model.addAttribute("reviews",reviewService.getAllPendingReviews());
+        return "pages/admin/pendingReviews";
+    }
+
+    @PostMapping("/reviews/accept/{id}")
+    public String acceptReview(@PathVariable Long id,RedirectAttributes redirectAttributes){
+        reviewService.acceptReview(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Review has been accepted!");
+        return "redirect:/admin/reviews";
+    }
+
+    @PostMapping("/reviews/reject/{id}")
+    public String rejectReview(@PathVariable Long id,RedirectAttributes redirectAttributes){
+        reviewService.rejectReview(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Review has been rejected!");
+        return "redirect:/admin/reviews";
+    }
 
 }
