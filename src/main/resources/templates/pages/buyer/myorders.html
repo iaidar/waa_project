@@ -32,19 +32,22 @@
             <td th:text="${order.pointUsed}">Otto</td>
             <td th:text="${order.getTotal()}">Otto</td>
             <td>
-                <p>
-                    <span th:hidden="${order.status}!=1" class="text-warning" style="font-size: 35px">&bull;</span>
-                    <span th:hidden="${order.status}!=2" class="text-primary" style="font-size: 35px">&bull;</span>
-                    <span th:hidden="${order.status}!=3" class="text-success" style="font-size: 35px">&bull;</span>
-                    <span th:hidden="${order.status}!=4" class="text-danger" style="font-size: 35px">&bull;</span>
+                    <span th:hidden="${order.status}!=1" class="text-warning" style="font-size: 30px;vertical-align: middle;">&bull;</span>
+                    <span th:hidden="${order.status}!=2" class="text-primary" style="font-size: 30px;vertical-align: middle;">&bull;</span>
+                    <span th:hidden="${order.status}!=3" class="text-success" style="font-size: 30px;vertical-align: middle;">&bull;</span>
+                    <span th:hidden="${order.status}!=4" class="text-danger" style="font-size: 30px;vertical-align: middle;">&bull;</span>
                     <span th:text="${order.getStatusText()}" ></span>
-                </p>
             </td>
             <td>
-                <a th:href="@{/buyer/orders/{id}(id=${order.id})}" class="btn btn-info">details</a> <br>
-                <a th:title="Cancel" class="btn btn-danger" th:href="@{/buyer/orders/cancelform/{id}(id=${order.id})}"
-                th:if="${status == 1}">
-                    Cancel Order
+                <a th:title="details" class="btn btn-primary"  th:href="@{/buyer/orders/{id}(id=${order.id})}">
+                    <i class="material-icons" style="vertical-align: sub;">
+                        arrow_forward
+                    </i>
+                </a>
+                <a  th:title="cancel" class="btn btn-danger" th:href="@{/buyer/orders/cancelform/{id}(id=${order.id})}" th:if="${status == 1}">
+                    <i class="material-icons" style="vertical-align: sub;">
+                        cancel
+                    </i>
                 </a>
             </td>
         </tr>
