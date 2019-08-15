@@ -50,6 +50,11 @@
                             border_color
                         </i>
                     </a>
+                    <a  th:title="reviews" class="btn btn-warning" th:href="@{/seller/product/{id}/reviews(id=${product.id})}">
+                        <i class="material-icons">
+                            rate_review
+                        </i>
+                    </a>
                 </td>
             </tr>
         </tbody>

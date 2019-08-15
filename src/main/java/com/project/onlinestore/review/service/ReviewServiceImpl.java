@@ -77,8 +77,8 @@ public class ReviewServiceImpl implements ReviewService {
         reviewRespository.save(review);
         String username = review.getBuyer().getUser().getUsername();
         emailService.sendPendingAcceptanceReview(userService.findUserByUserName(username),review);
-        notificationService.notifyBuyerReviewAccepted(username,id);
-        notificationService.notifySellerReview(review.getProduct().getSeller().getUser().getUsername(),id);
+        notificationService.notifyBuyerReviewAccepted(username,review.getProduct().getId());
+        notificationService.notifySellerReview(review.getProduct().getSeller().getUser().getUsername(),review.getProduct().getId());
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ReviewServiceImpl implements ReviewService {
 
         String username = review.getBuyer().getUser().getUsername();
         emailService.sendPendingRejectReview(userService.findUserByUserName(username),review);
-        notificationService.notifyBuyerReviewRejected(username,id);
+        notificationService.notifyBuyerReviewRejected(username,review.getProduct().getId());
     }
 
 

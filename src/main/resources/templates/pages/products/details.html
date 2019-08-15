@@ -37,8 +37,18 @@
                             <dt>Description</dt>
                             <dd><p th:text="${product.description}"></p></dd>
                         </dl>
-                        <!-- item-property-hor .// -->
-
+                        <dl>
+                            <div class="col-md-12 text-warning" style="font-size: 30px">
+                                <i th:class="${average>0}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                                <i th:class="${average>1}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                                <i th:class="${average>2}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                                <i th:class="${average>3}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                                <i th:class="${average>4}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                            </div>
+                            <a th:href="@{/buyer/product/{id}/reviews(id=${product.id})}"><button type="submit"
+                                    class="btn btn-lg btn-outline-danger text-uppercase" >All reviews</button></a>
+                        </dl>
+                                <!-- item-property-hor .// -->
                         <form method="get" th:action="@{/cart/add/{id}(id=${product.id})}">
                             <hr>
                             <div class="row">
@@ -51,9 +61,8 @@
                                     </dl>  <!-- item-property .// -->
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
-                            <hr>
                             <input type="submit" th:href="@{/cart/add/{id}(id=${product.id})}"
-                               class="btn btn-lg btn-outline-primary text-uppercase" value="Add to cart"> </input>
+                                   class="btn btn-lg btn-outline-primary text-uppercase" value="Add to cart"> </input>
                             <hr>
                         </form>
                         <div class="row">
