@@ -41,7 +41,7 @@ public class BuyerController {
         return fileService.readFile(rootDirectory+"//link.txt");
     }
 
-    @ModelAttribute("notification_number")
+    @ModelAttribute("notification_number_buyer")
     private int getNotificationNumber(Principal principal){
         return notificationService.countUnseenNotifications(principal.getName());
     }
@@ -76,7 +76,7 @@ public class BuyerController {
     @GetMapping("/notifications")
     public String getNotifications(Model model,Principal principal){
         model.addAttribute("notifications",notificationService.getUnseenNotifications(principal.getName()));
-        notificationService.makeAllNotificationsSeen();
+        notificationService.makeAllNotificationsSeenByUser(principal.getName());
         return "pages/buyer/notifications";
     }
 

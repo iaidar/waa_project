@@ -1,11 +1,13 @@
 package com.project.onlinestore.notification.service;
 
 import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.domain.Line;
 import com.project.onlinestore.buyer.domain.Order;
 import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.buyer.service.OrderService;
 import com.project.onlinestore.notification.domain.Notification;
 import com.project.onlinestore.notification.repository.NotificationRepository;
+import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.security.domain.User;
 import com.project.onlinestore.security.service.UserService;
 import com.project.onlinestore.seller.domain.Seller;
@@ -59,8 +61,12 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void makeAllNotificationsSeen() {
-        this.notificationRepository.makeAllNotificationsSeen();
+    public void makeAllNotificationsSeenByUser(String username) {
+        List<Notification> notifications = notificationRepository.findByUser(userService.findUserByUserName(username));
+        for (Notification notification:notifications){
+            notification.setSeen(true);
+            notificationRepository.save(notification);
+        }
     }
 
     @Override
@@ -79,5 +85,16 @@ public class NotificationServiceImpl implements NotificationService {
         String link = "http://localhost:8080/admin/orders";
         String message = "Order #"+order.getId()+" is "+order.getStatusText();
         save(user,message,link);
+    }
+
+    @Override
+    public void notifyOrderSeller(Long orderId) {
+        Order order = orderService.findById(orderId);
+        for (Line line:order.getLines()) {
+            User user = line.getProduct().getSeller().getUser();
+            String link = "http://localhost:8080/seller/myproducts";
+            String message = "Product #" + line.getProduct().getId()+" "+line.getProduct().getTitle() + " has been bought " + line.getQty()+" times";
+            save(user, message, link);
+        }
     }
 }

@@ -31,7 +31,7 @@ public class AdminController {
     @Autowired
     NotificationService notificationService;
 
-    @ModelAttribute("notification_number")
+    @ModelAttribute("notification_number_admin")
     private int getNotificationNumber(Principal principal){
         return notificationService.countUnseenNotifications(principal.getName());
     }
@@ -39,7 +39,7 @@ public class AdminController {
     @GetMapping("/notifications")
     public String getNotifications(Model model,Principal principal){
         model.addAttribute("notifications",notificationService.getUnseenNotifications(principal.getName()));
-        notificationService.makeAllNotificationsSeen();
+        notificationService.makeAllNotificationsSeenByUser(principal.getName());
         return "pages/admin/notifications";
     }
 
@@ -146,6 +146,7 @@ public class AdminController {
     public String deliverOrder(Long id) {
         orderService.updateStatus(id,3);
         notificationService.notifyOrderBuyer(id);
+        notificationService.notifyOrderSeller(id);
         return "redirect:/admin/orders";
     }
 

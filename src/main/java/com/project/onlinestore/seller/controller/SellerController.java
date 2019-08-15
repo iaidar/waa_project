@@ -1,5 +1,6 @@
 package com.project.onlinestore.seller.controller;
 
+import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.product.domain.Product;
 import com.project.onlinestore.product.service.ProductService;
 import com.project.onlinestore.security.domain.User;
@@ -28,6 +29,9 @@ import java.util.Optional;
 @RequestMapping("/seller")
 public class SellerController {
 
+    @Autowired
+    NotificationService notificationService;
+
     private ProductService productService;
     private SellerService sellerService;
     private UserService userService;
@@ -39,6 +43,18 @@ public class SellerController {
         this.sellerService = sellerServicel;
         this.userService = userService;
         this.fileService = fileService;
+    }
+
+    @ModelAttribute("notification_number_seller")
+    private int getNotificationNumber(Principal principal){
+        return notificationService.countUnseenNotifications(principal.getName());
+    }
+
+    @GetMapping("/notifications")
+    public String getNotifications(Model model,Principal principal){
+        model.addAttribute("notifications",notificationService.getUnseenNotifications(principal.getName()));
+        notificationService.makeAllNotificationsSeenByUser(principal.getName());
+        return "pages/seller/notifications";
     }
 
     @GetMapping("/myproducts")

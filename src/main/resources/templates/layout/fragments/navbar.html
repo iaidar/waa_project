@@ -59,7 +59,7 @@
             <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
                 <a href="#" th:href="@{/buyer/notifications}">
                     <button class="btn btn-primary" type="button">
-                        Notifications <span class="badge badge-light" th:text="${notification_number}"></span>
+                        Notifications <span class="badge badge-light" th:text="${notification_number_buyer}"></span>
                     </button>
                 </a>
             </li>
@@ -82,7 +82,16 @@
             <li class="nav-item mr-2" sec:authorize="hasAuthority('ADMIN')">
                 <a href="#" th:href="@{/admin/notifications}">
                     <button class="btn btn-primary" type="button">
-                        Notifications <span class="badge badge-light" th:text="${notification_number}"></span>
+                        Notifications <span class="badge badge-light" th:text="${notification_number_admin}"></span>
+                    </button>
+                </a>
+            </li>
+
+            <!-- Seller -->
+            <li class="nav-item mr-2" sec:authorize="hasAuthority('SELLER')">
+                <a href="#" th:href="@{/seller/notifications}">
+                    <button class="btn btn-primary" type="button">
+                        Notifications <span class="badge badge-light" th:text="${notification_number_seller}"></span>
                     </button>
                 </a>
             </li>

@@ -13,7 +13,5 @@ import java.util.List;
 public interface NotificationRepository extends CrudRepository<Notification,Long> {
     int countAllByUserAndSeenIsFalse(User user);
     List<Notification> findByUserOrderByLocalDateTimeDesc(User user);
-    @Modifying
-    @Query("update Notification n set n.seen = 1 ")
-    void makeAllNotificationsSeen();
+    List<Notification> findByUser(User user);
 }

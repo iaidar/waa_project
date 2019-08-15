@@ -12,7 +12,8 @@ public interface NotificationService {
     int countUnseenNotifications(String username);
     List<Notification> getUnseenNotifications(String username);
     void notifyAllFollowers(Seller seller,String message,String link);
-    void makeAllNotificationsSeen();
+    void makeAllNotificationsSeenByUser(String username);
     void notifyOrderBuyer(Long orderId);
     void notifyOrderAdmin(Long orderId);
+    void notifyOrderSeller(Long orderId);
 }
