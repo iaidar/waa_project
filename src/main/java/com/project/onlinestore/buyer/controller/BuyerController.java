@@ -101,6 +101,10 @@ public class BuyerController {
         Order order = orderService.getOrderById(id);
         order.setStatus(4);
         orderService.save(order);
+        Buyer buyer = order.getBuyer();
+        buyer.setPoints(buyer.getPoints()-100);
+        buyerService.save(buyer);
+        notificationService.notifyOrderAdmin(id);
         return "redirect:/buyer/myorders";
     }
 

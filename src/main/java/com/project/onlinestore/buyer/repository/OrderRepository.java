@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order,Long> {
-    List<Order> findAllByBuyer(Buyer buyer);
-        List<Order> findAllByBuyerAndStatusEquals(Buyer buyer, int status);
+    List<Order> findAllByBuyerOrderByLocalDateTimeDesc(Buyer buyer);
+    List<Order> findAllByBuyerAndStatusEqualsOrderByLocalDateTimeDesc(Buyer buyer, int status);
+    List<Order> findAllByOrderByLocalDateTimeDesc();
+    List<Order> findAllByStatusEqualsOrderByLocalDateTimeDesc(int status);
 }

@@ -108,6 +108,7 @@ public class CartController {
         }
 
         Order newOrder=orderService.saveOrder(order,getCart(principal).getId(),principal.getName());
+        notificationService.notifyOrderAdmin(newOrder.getId());
 
         return "redirect:/buyer/orders/"+newOrder.getId();
     }

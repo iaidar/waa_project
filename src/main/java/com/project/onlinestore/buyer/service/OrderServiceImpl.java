@@ -44,12 +44,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findAllByBuyer(Buyer buyer) {
-        return orderRepository.findAllByBuyer(buyer);
+        return orderRepository.findAllByBuyerOrderByLocalDateTimeDesc(buyer);
     }
 
     @Override
     public List<Order> findAllByBuyerAndStatusEquals(Buyer buyer, int status) {
-        return this.orderRepository.findAllByBuyerAndStatusEquals(buyer, status);
+        return this.orderRepository.findAllByBuyerAndStatusEqualsOrderByLocalDateTimeDesc(buyer, status);
     }
 
     @Override
@@ -60,6 +60,23 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findById(Long id) {
         return orderRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAllByOrderByLocalDateTimeDesc();
+    }
+
+    @Override
+    public List<Order> findAllByStatus(int status) {
+        return orderRepository.findAllByStatusEqualsOrderByLocalDateTimeDesc(status);
+    }
+
+    @Override
+    public void updateStatus(Long orderId, int status) {
+        Order order = findById(orderId);
+        order.setStatus(status);
+        save(order);
     }
 
 

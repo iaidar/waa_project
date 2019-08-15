@@ -1,6 +1,9 @@
 package com.project.onlinestore.notification.service;
 
 import com.project.onlinestore.buyer.domain.Buyer;
+import com.project.onlinestore.buyer.domain.Order;
+import com.project.onlinestore.buyer.service.BuyerService;
+import com.project.onlinestore.buyer.service.OrderService;
 import com.project.onlinestore.notification.domain.Notification;
 import com.project.onlinestore.notification.repository.NotificationRepository;
 import com.project.onlinestore.security.domain.User;
@@ -22,6 +25,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    OrderService orderService;
 
     @Override
     public Notification save(User user,String message,String link) {
@@ -57,4 +63,21 @@ public class NotificationServiceImpl implements NotificationService {
         this.notificationRepository.makeAllNotificationsSeen();
     }
 
+    @Override
+    public void notifyOrderBuyer(Long orderId) {
+        Order order = orderService.findById(orderId);
+        User user = order.getBuyer().getUser();
+        String link = "http://localhost:8080/buyer/myorders";
+        String message = "Order #"+order.getId()+" is "+order.getStatusText();
+        save(user,message,link);
+    }
+
+    @Override
+    public void notifyOrderAdmin(Long orderId) {
+        Order order = orderService.findById(orderId);
+        User user = userService.findUserByUserName("admin");
+        String link = "http://localhost:8080/admin/orders";
+        String message = "Order #"+order.getId()+" is "+order.getStatusText();
+        save(user,message,link);
+    }
 }

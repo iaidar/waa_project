@@ -13,4 +13,6 @@ public interface NotificationService {
     List<Notification> getUnseenNotifications(String username);
     void notifyAllFollowers(Seller seller,String message,String link);
     void makeAllNotificationsSeen();
+    void notifyOrderBuyer(Long orderId);
+    void notifyOrderAdmin(Long orderId);
 }
