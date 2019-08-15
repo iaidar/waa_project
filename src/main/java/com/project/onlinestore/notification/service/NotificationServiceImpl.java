@@ -97,4 +97,12 @@ public class NotificationServiceImpl implements NotificationService {
             save(user, message, link);
         }
     }
+
+    @Override
+    public void notifyAdminReview(String username,Long productId) {
+        User user = userService.findUserByUserName("admin");
+        String link = "http://localhost:8080/admin/reviews";
+        String message = "Product #"+productId+" has been reviewed by user "+username;
+        save(user,message,link);
+    }
 }

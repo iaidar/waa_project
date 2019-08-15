@@ -16,4 +16,5 @@ public interface NotificationService {
     void notifyOrderBuyer(Long orderId);
     void notifyOrderAdmin(Long orderId);
     void notifyOrderSeller(Long orderId);
+    void notifyAdminReview(String username,Long productId);
 }

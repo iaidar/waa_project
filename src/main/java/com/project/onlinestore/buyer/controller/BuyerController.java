@@ -6,16 +6,24 @@ import com.project.onlinestore.buyer.service.BuyerService;
 import com.project.onlinestore.buyer.service.OrderService;
 import com.project.onlinestore.notification.service.NotificationService;
 import com.project.onlinestore.product.domain.Product;
+import com.project.onlinestore.product.service.ProductService;
+import com.project.onlinestore.review.domain.Review;
+import com.project.onlinestore.review.repository.ReviewRespository;
+import com.project.onlinestore.review.service.ReviewService;
 import com.project.onlinestore.security.domain.User;
+import com.project.onlinestore.security.service.UserService;
 import com.project.onlinestore.seller.domain.Seller;
 import com.project.onlinestore.utils.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -33,6 +41,15 @@ public class BuyerController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    ReviewService reviewService;
+
+    @Autowired
+    UserService userService;
 
 
     @ModelAttribute("link")
@@ -123,6 +140,25 @@ public class BuyerController {
         model.addAttribute("orders", orderService.findAllByBuyerAndStatusEquals(buyer, 1));
         model.addAttribute("status", 1);
         return "pages/buyer/myorders";
+    }
+
+    @GetMapping("/review/{id}")
+    public String getReviewForm(@ModelAttribute("review") Review review,@PathVariable Long id, Model model){
+        model.addAttribute("productId",id);
+        return "pages/reviews/reviewform";
+    }
+
+    @PostMapping("/review/{id}")
+    public String reviewProduct(@Valid @ModelAttribute("review") Review review, BindingResult result,@PathVariable Long id,Principal principal){
+        if (result.hasErrors()){
+            return "pages/reviews/reviewform";
+        }
+        review.setProduct(productService.findById(id));
+        review.setBuyer(buyerService.getBuyerByUsername(principal.getName()));
+        review.setLocalDateTime(LocalDateTime.now());
+        reviewService.save(review);
+        notificationService.notifyAdminReview(principal.getName(),id);
+        return "redirect:/buyer/myorders";
     }
 
 }
